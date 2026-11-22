@@ -26,9 +26,16 @@ $$
 
 The approach combines affine transplantation, boundary moment identities, and Rellich identities.
 
+### N = 4: Quadrilaterals
+
+**A Sharp Steklov Inequality for Quadrilaterals by Interpolation Along a Diagonal**  
+**Authors:** Zhuo Cheng and Yi'an Zhang
+
+[Read PDF](N4_Quadrilateral.pdf) | [LaTeX source](N4_Quadrilateral.tex)
+
 ## Additional manuscripts
 
-Results for $N=4,5,6$ will be listed here when the corresponding manuscripts are uploaded.
+Results for $N=5,6$ will be listed here when the corresponding manuscripts are uploaded.
 
 ## Versioning
 
