@@ -1,0 +1,1294 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{microtype}
+\usepackage[a4paper,margin=32mm]{geometry}
+\usepackage[hidelinks,hypertexnames=false]{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+\title[Steklov inequalities for quadrilaterals]{A sharp Steklov inequality for quadrilaterals\protect\\ by interpolation along a diagonal}
+\author{Zhuo Cheng}
+\author{Yi'an Zhang}
+\date{}
+\keywords{Steklov eigenvalue, quadrilateral, quantitative stability, spectral optimization}
+\begin{document}
+\begin{abstract}
+Let $\tau\in(0,\pi/2)$ be the unique solution of $\tan\tau\tanh\tau=1$. We prove that every simple nondegenerate planar quadrilateral $Q$ of perimeter $P(Q)$ satisfies $P(Q)\sigma_1(Q)\le 8\tau\tanh\tau$, where $\sigma_1(Q)$ denotes the first nonzero Steklov eigenvalue, with equality if and only if $Q$ is a square. For convex quadrilaterals with four genuine corners, we establish a quantitative stability estimate that is quadratic in the displacement of the diagonal midpoints and linear in the affine deformation of the associated parallelogram. In the convex case, the proof employs a pair of trial functions interpolating between the first square eigenfunctions and the coordinate map via a two-triangle parametrization along a diagonal; this yields an exact completion of the Dirichlet energy, after which a boundary covariance estimate and a square completion control the full displacement range. Concave quadrilaterals satisfy $P(Q)\sigma_1(Q)<3\sqrt{3}$.
+\end{abstract}
+\maketitle
+\raggedbottom
+
+\section{Introduction}
+
+For a bounded Lipschitz domain $\Omega\subset\mathbb R^2$ of perimeter $P(\Omega)$, the first nonzero Steklov eigenvalue admits the variational characterization
+\[
+\sigma_1(\Omega)
+=\inf_{\substack{w\in H^1(\Omega)\\ \mathcal M_\Omega(w)>0}}
+\frac{\mathcal E_\Omega(w)}{\mathcal M_\Omega(w)},
+\]
+where the Dirichlet energy and boundary variance are given by
+\[
+\mathcal E_\Omega(w)=\int_\Omega|\nabla w|^2,
+\qquad
+\mathcal M_\Omega(w)=\int_{\partial\Omega}w^2\,ds
+-\frac1{P(\Omega)}\left(\int_{\partial\Omega}w\,ds\right)^2,
+\]
+with $ds$ denoting arclength measure on $\partial\Omega$. Because the perimeter-normalized product $\mathcal J(\Omega)=P(\Omega)\sigma_1(\Omega)$ is invariant under similarities, it is the natural scale-free functional to maximize at fixed perimeter.
+
+For simply connected planar domains, Weinstock~\cite{Weinstock1954}
+proved $\mathcal J(\Omega)\le2\pi$, with equality precisely for disks.
+Hersch, Payne, and Schiffer~\cite{HerschPayneSchiffer1974} obtained
+inequalities for products of higher Steklov eigenvalues. Girouard and
+Polterovich~\cite{GirouardPolterovich2010} proved sharpness for individual
+eigenvalues and products of consecutive ones through domains degenerating
+into equal disks. Under a volume constraint, Brock's
+inequality~\cite{Brock2001} identifies the ball as the maximizer of the
+first nonzero eigenvalue. Bucur, Ferone, Nitsch, and
+Trombetti~\cite{BucurEtAl2021} proved the corresponding result under a
+boundary-measure constraint in the convex class.
+
+The geometric theory also connects extremal Steklov metrics with free
+boundary minimal surfaces, through the work of Fraser and
+Schoen~\cite{FraserSchoen2011,FraserSchoen2016}.
+Continuity of variational eigenvalues and homogenization led Girouard,
+Karpukhin, and Lagac\'e~\cite{GirouardKarpukhinLagace2021} to sharp bounds
+for planar domains with unrestricted boundary topology. The surveys
+\cite{GirouardPolterovich2017,ColboisEtAl2024} describe these developments
+and their place in spectral geometry.
+
+Quantitative inequalities relate the spectral deficit to geometric
+deformation. Brasco, De Philippis, and Ruffini~\cite{BrascoEtAl2012}
+proved sharp stability for the volume-constrained inequality.
+Bucur and Nahon~\cite{BucurNahon2021} identified the role of boundary
+oscillations in the stability of Weinstock's perimeter inequality.
+
+A fixed number of straight sides leads to extremal problems for regular
+polygons. Their Dirichlet and torsional counterparts originate in
+P\'olya's symmetrization theory~\cite{Polya1948}.
+Bucur and Fragal\`a~\cite{BucurFragala2021} obtained symmetry results from
+the first variations of polygonal energies, while Bogosel and
+Bucur~\cite{BogoselBucur2024} reduced the polygonal Faber--Krahn problem
+to finitely many certified computations. For the Steklov problem, Cheng,
+Gui, Hu, Li, and Yao~\cite{ChengEtAl2026} proved that the first eigenvalue
+of a regular $N$-gon of fixed perimeter increases strictly with $N$ for
+every $N\ge3$, and that its first eigenspace has dimension two. The
+polygonal extremal conjecture recorded in
+\cite[Conjecture~1.1]{ChengEtAl2026} asks whether the regular $N$-gon
+maximizes this eigenvalue among convex polygons with at most $N$ sides
+and prescribed perimeter.
+
+Recent torsion results give further comparisons within polygonal classes.
+Gui, Hu, Li, and Zhang~\cite{GuiHuLiZhang2026} studied mixed torsion on
+right triangles and proved strict monotonicity of Dirichlet torsional
+rigidity along equal-area regular polygons. For tangential polygons, Gui,
+Hu, and Li~\cite{GuiHuLi2026} established a quantitative
+P\'olya--Szeg\H{o} inequality with an explicit perimeter deficit.
+Gui, Hu, Li, and Yang~\cite{GuiHuLiYang2026} extended this comparison to
+Robin torsional rigidity. These results quantify the effect of polygonal
+geometry on variational energies.
+
+The Steklov spectrum records the corners as well as the side lengths.
+Levitin, Parnovski, Polterovich, and Sher~\cite{LevitinEtAl2022} derived
+asymptotics for curvilinear polygons, and Krymski, Levitin, Parnovski,
+Polterovich, and Sher~\cite{KrymskiEtAl2021} used these asymptotics in the
+inverse problem. Dryden, Gordon, Moreno, Rowlett, and
+Villegas-Blas established spectral finiteness for generic convex
+polygons~\cite{DrydenEtAl2025} and studied spectral determination for
+triangles, quadrilaterals, and regular polygons~\cite{DrydenEtAl2026}.
+
+For optimization over variable domains, Bogosel~\cite{Bogosel2017}
+proved continuity and existence results under geometric control, and
+Bogosel, Bucur, and Giacomini~\cite{BogoselBucurGiacomini2017} established
+existence of volume-constrained maximizers in a relaxed class.
+Numerical methods for boundary eigenvalue problems and extremal Steklov
+shapes were developed in~\cite{Bogosel2016,AkhmetgaliyevEtAl2017}.
+On rectangles, explicit Steklov eigenfunctions also give boundary
+integral representations of harmonic functions~\cite{AuchmutyCho2015}.
+
+Let $\tau\in(0,\pi/2)$ be the unique root of $\tan\tau\tanh\tau=1$, and set $r=\tanh\tau$ and $s=\tau r=\tau\tanh\tau$. Separation of variables on the reference square $\Omega_\square=(-1,1)^2$ shows that $\sigma_1(\Omega_\square)=s$, with a two-dimensional first eigenspace \cite{Tan2017,GirouardEtAl2019}. Since $P(\Omega_\square)=8$, its normalized eigenvalue is $\mathcal J(\Omega_\square)=8s$. The sharp quadrilateral inequality is the following.
+
+\begin{theorem}\label{thm-main}
+Every simple nondegenerate quadrilateral $Q\subset\mathbb R^2$ satisfies
+\[
+P(Q)\sigma_1(Q)\le 8s,
+\]
+with equality if and only if $Q$ is a square. Consequently, up to rigid motions, the square uniquely maximizes $\sigma_1$ among simple quadrilaterals of prescribed perimeter.
+\end{theorem}
+
+Here a \emph{simple nondegenerate quadrilateral} means the polygonal domain bounded by a simple closed chain of four segments of positive length enclosing positive area; a redundant collinear vertex (in which case $Q$ is geometrically a triangle) is permitted. For convex quadrilaterals with four genuine corners, Lemma~\ref{lem-normal-form} introduces normalized midpoint coordinates $(b,\gamma,h,k)$ in which $(b,\gamma)$ encodes the aspect ratio and shear of the associated parallelogram (with $b=1$ and $\gamma=0$ when this parallelogram is a square), while $(h,k)$ measures the displacement of the diagonal midpoints. In these coordinates we obtain the following quantitative stability estimate.
+
+\begin{samepage}
+\begin{theorem}\label{thm-stability}
+There exists a universal constant $c>0$ such that every convex quadrilateral $Q\subset\mathbb R^2$ with four genuine corners, expressed in the normalized midpoint coordinates $(b,\gamma,h,k)$ of Lemma~\ref{lem-normal-form}, satisfies
+\[
+8s-\mathcal J(Q)\ge c\min\left\{1,\,
+h^2+k^2+\sqrt{(1-b)^2+\gamma^2}\right\}.
+\]
+\end{theorem}
+\end{samepage}
+
+Transplantation and coordinate tests are classical tools in isoperimetric
+spectral inequalities~\cite{PolyaSchiffer1954,Szego1954,Weinberger1956}.
+
+For convex quadrilaterals, an elementary diagonal test restricts the problem to a fixed range of affine parameters. In this regime, we parametrize $Q$ from $\Omega_\square$ by a bi-Lipschitz map that is affine on each of the two triangles separated by a diagonal. After factoring out the affine part of the associated parallelogram, the displacement of the diagonal midpoints enters through the scalar profile $q(x,y)=1-|x-y|$ on $\Omega_\square$, which agrees with $xy$ on $\partial\Omega_\square$, and the two triangular pieces have Jacobian determinants proportional to $1\pm(h-k)$. Pairing opposite points under central reflection then yields an exact completion of the Dirichlet energy with denominator $1-(h-k)^2$. We construct a pair of trial functions interpolating between the first square eigenfunctions and the linear coordinates with weight $\lambda=1-(h-k)^2$, which cancels this denominator.
+
+Transporting this trial pair to physical coordinates decomposes the total Rayleigh deficit into an affine contribution carrying positive quadratic terms in $1-b$ and $\gamma$, a boundary displacement gain controlled uniformly across the full convex displacement range by a boundary variance estimate, and a mixed energy term coupling $1-b$ with the diagonal displacement. A square completion gives a nonnegative lower bound that vanishes only for the square, establishing both the sharp convex inequality and quadratic stability in $(h,k)$. The linear affine rate in Theorem~\ref{thm-stability} follows from the largest eigenvalue of the deficit form on the two-dimensional first eigenspace of the square. Its first-order part detects both $1-b$ and $\gamma$, while the displacement changes this form by $O(h^2+k^2)$. Finally, broken-line boundary variance estimates for the coordinate functions give $\mathcal J(Q)<3\sqrt{3}$ for concave quadrilaterals and $\mathcal J(Q)\le3\sqrt{3}$ for triangles with a redundant vertex.
+
+Section~2 introduces the midpoint coordinates, the square moments and the
+diagonal exclusion estimate. Section~\ref{sec-global-interpolation}
+develops the diagonal interpolation and the boundary covariance estimate.
+Section~4 proves the convex deficit, and Section~5 derives quantitative
+stability. Section~6 treats concave quadrilaterals and triangles with a
+redundant vertex. The square moment bounds are proved in
+Appendix~\ref{app-square}.
+
+\section{Geometry and square data}
+
+For an admissible trial function define its normalized deficit by
+\[
+D_Q(w)=\frac{\mathcal M_Q(w)}{P(Q)}-
+\frac{\mathcal E_Q(w)}{8s}.
+\]
+We use the same notation with two arguments for the associated symmetric
+bilinear forms. The variational principle gives
+\begin{equation}\label{eq-rayleigh-deficit}
+(8s-\mathcal J(Q))\frac{\mathcal M_Q(w)}{P(Q)}
+\ge8s\,D_Q(w).
+\end{equation}
+Summing this inequality over a finite collection of trials shows that
+a positive total deficit implies $\mathcal J(Q)<8s$.
+
+\begin{samepage}
+\begin{lemma}[Midpoint coordinates]\label{lem-normal-form}
+After a similarity and relabeling, every convex quadrilateral with four
+genuine corners has cyclic vertices
+\[
+-e-f+g,\quad e-f-g,\quad e+f+g,\quad -e+f-g,
+\]
+where
+\[
+e=(1,0),\quad f=b(\gamma,\sqrt{1-\gamma^2}),\quad g=he+kf,
+\]
+\[
+0<b\le1,\quad |\gamma|<1,\quad h,k\ge0,\quad h+k<1.
+\]
+The area and the larger diagonal length $L$ are
+\[
+|Q|=4b\sqrt{1-\gamma^2},\qquad
+L^2=4(1+b^2+2b|\gamma|).
+\]
+\end{lemma}
+\end{samepage}
+\begin{proof}
+Translate the vertices $v_1,\ldots,v_4$ so that their sum is zero, and set
+\[
+e=\frac{v_2+v_3-v_1-v_4}{4},\quad
+f=\frac{v_3+v_4-v_1-v_2}{4},\quad
+g=\frac{v_1+v_3-v_2-v_4}{4}.
+\]
+The shoelace identity gives signed area $4\det(e,f)$, so $e,f$ are
+independent. Write $g=he+kf$. The four consecutive edge determinants,
+after division by $4\det(e,f)$, are
+$1-h+k$, $1+h+k$, $1+h-k$, and $1-h-k$.
+Thus strict convexity is equivalent to $|h|+|k|<1$.
+Reversing the order can interchange $e,f$, so arrange $|e|\ge|f|$.
+The relabelings $(v_2,v_1,v_4,v_3)$ and $(v_4,v_3,v_2,v_1)$
+change the signs of $k$ and $h$, respectively, without changing this
+ordering. A similarity and a possible reflection give the stated form.
+The side midpoints are $-f,e,f,-e$, and the diagonal midpoints are $g,-g$.
+Thus $A\Omega_\square$, with $A=[e\ f]$, has the same side midpoints as $Q$.
+The diagonal vectors are $2(e+f)$ and $2(f-e)$, which give the remaining formulas.
+\end{proof}
+
+We use the first square eigenfunctions
+\[
+u(x,y)=\frac{\sin(\tau x)\cosh(\tau y)}{\cosh\tau},\qquad
+v(x,y)=u(y,x),\qquad (x,y)\in\Omega_\square.
+\]
+Define their boundary and energy moments by
+\[
+a_\square=\int_{-1}^1u(t,1)^2\,dt,\quad
+b_\square=\int_{-1}^1u(1,t)^2\,dt,\quad
+\ell_0=\int_{-1}^1u(1,t)\,dt,\quad
+\ell_1=\int_{-1}^1t\,u(t,1)\,dt,
+\]
+\[
+E=\int_{\Omega_\square}|\nabla u|^2,\quad
+B=\int_{\Omega_\square}(\partial_yu)^2,\quad
+C=\int_{\Omega_\square}
+(\partial_xu\,\partial_yv+\partial_yu\,\partial_xv),
+\]
+\[
+D_0=E-C,\qquad C_*=E-4\ell_0+4.
+\]
+
+\begin{lemma}[Square moments]\label{lem-square-model-bounds}
+The square eigenvalue is $s$, and the moments above satisfy
+\[
+\frac{11}{16}<s<\frac7{10},\quad
+\frac{49}{100}<a_\square\le b_\square<\frac{81}{100},\quad
+\ell_0>\frac54,\quad \ell_0^2<\frac85,\quad
+\frac9{16}<\ell_1<\frac23,
+\]
+\[
+E<\frac95,\qquad 0<B<\frac3{20},\qquad
+0<D_0<\frac18,\qquad C_*<\frac34,\qquad C>\frac85.
+\]
+\end{lemma}
+\begin{proof}
+The eigenvalue ordering follows from the separated rectangular spectrum
+\cite{Tan2017,GirouardEtAl2019}. Appendix~\ref{app-square} derives the moment identities and proves the
+scalar bounds.
+\end{proof}
+
+\begin{lemma}[A broken line]\label{lem-broken-line}
+Let a two-segment chain join $(-1,0)$ to $(1,0)$ through $(z,y)$, and let
+its length be $2p$, where $p\ge1$. For normalized arclength on that chain,
+\[
+\mathbb E(x,y)=\left(\frac z2(1-p^{-2}),\frac y2\right),
+\qquad
+\operatorname{Var}(x)=\frac13+
+\frac{(p^2-1)(p^2+3)z^2}{12p^4},
+\]
+\[
+\operatorname{Var}(y)=\frac{y^2}{12},\qquad
+\operatorname{Var}(x)+\operatorname{Var}(y)
+=\frac{p^2+3}{12}+\frac{(p^2-1)z^2}{4p^4}.
+\]
+\end{lemma}
+\begin{proof}
+The two segment lengths are $p+z/p$ and $p-z/p$, and
+$y^2=(p^2-1)(1-z^2/p^2)$. On each segment, integrate the affine coordinates using the endpoint
+average for the first moment and
+$(\alpha^2+\alpha\beta+\beta^2)/3$ for the second moment of a coordinate
+with endpoint values $\alpha,\beta$. Subtracting the squares of the means
+gives the formulas.
+\end{proof}
+
+\begin{lemma}[Diagonal exclusion]\label{lem-diagonal-exclusion}
+For either diagonal of length $L$ in a simple quadrilateral,
+\[
+\mathcal J(Q)\le\frac{12|Q|}{L^2}.
+\]
+In the convex normal form, if $b\le13/20$ or
+$|\gamma|\ge1/11$, then $\mathcal J(Q)\le11/2<8s$.
+\end{lemma}
+\begin{proof}
+The two boundary arcs joining the diagonal endpoints are broken lines.
+By Lemma~\ref{lem-broken-line}, each has variance at least $L^2/12$
+in the diagonal direction. The variance of the boundary measure is the weighted average of these
+variances plus a nonnegative term from the difference of the two means.
+The linear coordinate in that direction has energy $|Q|$, proving the
+first estimate. With $\rho=|\gamma|$, the normal form gives
+\[
+\mathcal J(Q)\le
+\frac{12b\sqrt{1-\rho^2}}{1+b^2+2b\rho}
+\le6\sqrt{\frac{1-\rho}{1+\rho}}.
+\]
+For $b\le13/20$, the first bound is less than $11/2$.
+For $\rho\ge1/11$, the second is at most $\sqrt{30}<11/2$.
+Lemma~\ref{lem-square-model-bounds} gives the strict comparison with $8s$.
+\end{proof}
+
+
+\section{Diagonal interpolation and boundary covariance}
+\label{sec-global-interpolation}
+
+Use the coordinates of Lemma~\ref{lem-normal-form}, and put
+\(d=\sqrt{1-\gamma^2}\). Throughout this section, assume
+\begin{equation}
+\label{eq-new-compact-affine}
+\frac{13}{20}\le b\le1,\qquad
+|\gamma|\le\rho:=\frac1{11}.
+\end{equation}
+Write
+\[
+A=[e\ f],\quad p=(h,k)^{\mathsf T},\quad
+W=A^{\mathsf T}A,\quad
+\mathsf G=\det A\,A^{-1}A^{-\mathsf T}
+=\frac1d\begin{pmatrix}b&-\gamma\\-\gamma&b^{-1}\end{pmatrix}.
+\]
+The square functions \(u,v\), the constants \(r,s\), and the boundary
+moments \(\ell_0,\ell_1\) are as in
+Lemma~\ref{lem-square-model-bounds}.
+
+\subsection{A two-triangle parametrization}
+
+On \(\Omega=\Omega_\square=(-1,1)^2\), put
+\[
+q(x,y)=1-|x-y|,\qquad n=(1,-1)^{\mathsf T},\qquad
+\Phi(x,y)=A\bigl((x,y)^{\mathsf T}+p\,q(x,y)\bigr).
+\]
+On the two triangles separated by \(x=y\),
+\(\nabla q=\pm n\), and
+\[
+\det D\Phi=\det A\,[1\pm(h-k)]>0.
+\]
+The map takes these triangles to the two triangles obtained by
+cutting \(Q\) along the diagonal joining \(-e-f+g\) and \(e+f+g\).
+It is therefore a bi-Lipschitz parametrization of \(Q\).
+On \(\partial\Omega\), \(q=xy\).
+
+We transport reference functions to \(Q\) by \(\Phi^{-1}\)
+and to \(\Pi=A\Omega\) by \(A^{-1}\).
+We use this convention in \eqref{eq-rayleigh-deficit}.
+
+\begin{lemma}[Energy completion on two triangles]
+\label{lem-new-tent-energy}
+If \(w\in H^1(\Omega)\) is centrally odd, then, for every \(c\in\mathbb R\),
+\[
+\mathcal E_Q(w+cq)=\mathcal E_\Pi(w)+
+\frac{n^{\mathsf T}\mathsf Gn}{1-(h-k)^2}
+\int_\Omega(p\cdot\nabla w-c)^2.
+\]
+\end{lemma}
+
+\begin{proof}
+Write \(\xi=\nabla q\) and \(\theta=p\cdot\xi\).
+The pulled-back energy matrix is
+\[
+B_p=(1+\theta)\mathsf G-p\xi^{\mathsf T}\mathsf G
+-\mathsf G\xi p^{\mathsf T}
++\frac{\xi^{\mathsf T}\mathsf G\xi}{1+\theta}\,pp^{\mathsf T}.
+\]
+Under central reflection, \(\nabla w\) is even and \(\xi\) is odd.
+Moreover, \(\xi^{\mathsf T}\mathsf G\xi=n^{\mathsf T}\mathsf Gn\)
+and \(\theta^2=(h-k)^2\).
+Pairing opposite points gives
+\[
+\mathcal E_Q(w)=\mathcal E_\Pi(w)+
+\frac{n^{\mathsf T}\mathsf Gn}{1-(h-k)^2}
+\int_\Omega(p\cdot\nabla w)^2.
+\]
+The identity
+\[
+B_p\xi=\mathsf G\xi-
+\frac{\xi^{\mathsf T}\mathsf G\xi}{1+\theta}p
+\]
+gives, by the same pairing,
+\[
+\mathcal E_Q(w,q)=-
+\frac{n^{\mathsf T}\mathsf Gn}{1-(h-k)^2}
+\int_\Omega p\cdot\nabla w,\qquad
+\mathcal E_Q(q)=
+\frac{4n^{\mathsf T}\mathsf Gn}{1-(h-k)^2}.
+\]
+The identity follows by expanding the quadratic energy.
+\end{proof}
+
+Set
+\[
+m=(h-k)^2,\qquad \lambda=1-m,\qquad
+R=|g|^2=p^{\mathsf T}Wp,\qquad \delta=1-b.
+\]
+Thus \(0\le m<1\), \(0<\lambda\le1\), and \(0\le R<1\).
+Define
+\[
+w_\lambda=\lambda u+(1-\lambda)x,\qquad
+z_\lambda=\lambda v+(1-\lambda)y,
+\]
+\[
+F_\lambda=w_\lambda+hq,\qquad
+G_\lambda=z_\lambda+kq.
+\]
+We use the two physical trial functions
+\[
+\mathbf Z\circ\Phi=\begin{pmatrix}Z_1\circ\Phi\\ Z_2\circ\Phi\end{pmatrix}
+=A\begin{pmatrix}F_\lambda\\ G_\lambda\end{pmatrix},
+\qquad
+\mathcal N=D_Q(Z_1)+D_Q(Z_2).
+\]
+Writing $U=(u,v)^{\mathsf T}$ and $\xi=(x,y)^{\mathsf T}$, we have
+\[
+\mathbf Z(\Phi(\xi))=\Phi(\xi)+\lambda A\bigl(U(\xi)-\xi\bigr).
+\]
+The eigenfunction correction is therefore weighted by the product of the
+two normalized Jacobian determinants.
+The choice of \(\lambda\) cancels the denominator in the energy
+completion:
+\[
+\frac{\lambda^2 n^{\mathsf T}\mathsf Gn}{1-(h-k)^2}
+=\frac{\lambda(b+b^{-1}+2\gamma)}d.
+\]
+
+\subsection{Boundary covariance and energy}
+
+Set
+\[
+a_\lambda=\int_{-1}^1w_\lambda(t,1)^2\,dt,\qquad
+b_\lambda=\int_{-1}^1w_\lambda(1,t)^2\,dt,
+\]
+\[
+E_\lambda=\int_\Omega|\nabla w_\lambda|^2,\qquad
+C_\lambda=\lambda^2C+4\lambda m\ell_0+4m^2.
+\]
+Then
+\[
+E_\lambda=\lambda^2E+4\lambda m\ell_0+4m^2,\qquad
+E_\lambda-C_\lambda=\lambda^2D_0.
+\]
+
+Let
+\[
+H_1=|e+g|+|e-g|,\quad H_2=|f+g|+|f-g|,
+\]
+\[
+d_1=|e+g|-|e-g|,\quad d_2=|f+g|-|f-g|,
+\quad P=2(H_1+H_2).
+\]
+Put \(\mathbf d=(d_1,d_2)^{\mathsf T}\) and
+\(\widehat{\mathbf d}=(d_2,d_1)^{\mathsf T}\), and define
+\[
+L_0=\lambda\ell_0+2m,\qquad
+L_1=\lambda\ell_1+\frac23m.
+\]
+The boundary identities are
+\[
+\int_{\partial Q}
+\begin{pmatrix}w_\lambda\\z_\lambda\end{pmatrix}\,ds
+=L_0\widehat{\mathbf d},\qquad
+\int_{\partial Q}
+q\begin{pmatrix}w_\lambda\\z_\lambda\end{pmatrix}\,ds
+=L_1\mathbf d,
+\]
+\[
+\int_{\partial Q}q\,ds=0,\qquad
+\int_{\partial Q}q^2\,ds=\frac P3.
+\]
+The matrix of uncentered second boundary moments is diagonal, with entries
+\[
+H_1a_\lambda+H_2b_\lambda,\qquad
+H_1b_\lambda+H_2a_\lambda.
+\]
+These formulas follow by integrating along each reference side,
+where \(q=xy\).
+
+Define the displacement contribution
+\begin{equation}
+\label{eq-new-boundary-functional}
+\mathcal B_\lambda=
+\frac R3+\frac{2L_1}{P}p^{\mathsf T}W\mathbf d
+-\frac{L_0^2}{P^2}
+\widehat{\mathbf d}^{\mathsf T}W\widehat{\mathbf d}.
+\end{equation}
+Let \(\mathcal N_{\rm aff}\) be the normalized deficit of
+\(A(w_\lambda,z_\lambda)^{\mathsf T}\) on \(\Pi=A\Omega\).
+The change in its normalized uncentered second boundary moment is
+\begin{equation}
+\label{eq-new-reweight-exact}
+\mathcal R_\lambda=
+-\frac{\delta(b_\lambda-a_\lambda)}P
+\bigl[b(H_1-2)-(H_2-2b)\bigr].
+\end{equation}
+The energy completion gives
+\begin{equation}
+\label{eq-new-global-exact}
+\mathcal N=
+\mathcal N_{\rm aff}+\mathcal R_\lambda+\mathcal B_\lambda
+-\frac{\lambda(b+b^{-1}+2\gamma)}{8sd}\,E_{\rm corr},
+\end{equation}
+where
+\begin{equation}
+\label{eq-new-Q}
+E_{\rm corr}=C_*R-B(1-b^2)(h^2-k^2)-2b\gamma D_0\,hk.
+\end{equation}
+The correction vector is $(DU-I)p$, so
+\[
+E_{\rm corr}=\int_\Omega|A(DU-I)p|^2\ge0.
+\]
+Parity eliminates the odd mixed moments; the remaining moments are
+\[
+\int_\Omega(\partial_xu-1)^2=C_*-B,\qquad
+\int_\Omega(\partial_yu)^2=B,
+\]
+\[
+\int_\Omega\bigl[(\partial_xu-1)(\partial_yv-1)
++\partial_yu\,\partial_xv\bigr]=C_*-D_0.
+\]
+Substituting these moments gives \eqref{eq-new-Q}.
+
+
+\subsection{The boundary covariance gain}
+
+The boundary contribution combines the change in side weights with the
+variance produced by the displacement.
+\begin{lemma}[Boundary covariance]\label{lem-new-combined-boundary}
+Under \eqref{eq-new-compact-affine},
+\[
+\mathcal R_\lambda+\mathcal B_\lambda
+\ge\left(\frac9{25}\lambda+\frac3{20}m\right)R.
+\]
+\end{lemma}
+\begin{proof}
+The side-length bounds give
+\[
+H_1-2\le2\sqrt{1+R}-2\le R,\qquad
+H_2-2b\ge0,\qquad P\ge4(1+b).
+\]
+Moreover,
+\[
+b_\lambda-a_\lambda
+=\lambda^2(b_\square-a_\square)
++2\lambda m(\ell_0-\ell_1)+\frac43m^2
+\le\frac\lambda3+\frac{4m}{3}.
+\]
+Here $0<b_\square-a_\square<1/3$ and
+$0<\ell_0-\ell_1<5/6$ follow from the square moment bounds.
+Since $b(1-b)/(1+b)\le7/50$, \eqref{eq-new-reweight-exact} implies
+\begin{equation}\label{eq-boundary-reweight-loss}
+\mathcal R_\lambda\ge-\frac7{600}(4-3\lambda)R.
+\end{equation}
+
+For $0\le\theta\le1$, set
+\[
+L_0(\theta)=\theta\ell_0+2(1-\theta),\qquad
+L_1(\theta)=\theta\ell_1+\frac23(1-\theta),
+\]
+\[
+V_\theta=\frac R3+\frac{2L_1(\theta)}P
+p^{\mathsf T}W\mathbf d
+-\frac{L_0(\theta)^2}{P^2}
+\widehat{\mathbf d}^{\mathsf T}W\widehat{\mathbf d}.
+\]
+Thus $V_\lambda=\mathcal B_\lambda$. For fixed geometry,
+$V_\theta-7(4-3\theta)R/600$ is concave in $\theta$:
+the first moments are affine, and the subtracted square has a
+nonnegative coefficient. We prove the endpoint bounds
+\begin{equation}\label{eq-boundary-endpoints}
+V_0\ge\frac15R,\qquad V_1\ge\frac38R.
+\end{equation}
+
+Put
+\[
+H=H_1+H_2,\qquad a=e\cdot g,\qquad z=\frac fb\cdot g,
+\qquad x_1=\frac2{H_1H},\qquad x_2=\frac{2b}{H_2H}.
+\]
+The two unit vectors $e,f/b$ have scalar product $\gamma$, so
+\begin{equation}\label{eq-boundary-frame-comparison}
+(1-|\gamma|)R\le a^2+z^2\le(1+|\gamma|)R,
+\qquad z^2\le R.
+\end{equation}
+The identities $H_1d_1=4a$ and $H_2d_2=4bz$ yield
+\begin{equation}\label{eq-boundary-displacement-quadratic}
+\begin{split}
+V_\theta={}&\frac R3+
+\bigl(2L_1(\theta)x_1-L_0(\theta)^2b^2x_1^2\bigr)a^2\\
+&+\bigl(2L_1(\theta)bx_2-L_0(\theta)^2x_2^2\bigr)z^2
+-2\gamma L_0(\theta)^2bx_1x_2az.
+\end{split}
+\end{equation}
+Since $R\le(h+bk)^2<1$,
+\[
+2\le H_1\le2\sqrt{1+R},\qquad
+2b\le H_2\le2\sqrt{b^2+R}.
+\]
+Consequently,
+\begin{equation}\label{eq-boundary-ratio-ranges}
+\frac18\le x_1\le\frac1{2(1+b)}<\frac13,\qquad
+\frac b{5+4b^2}\le x_2\le\frac1{2(1+b)},\qquad
+bx_1x_2\le\frac1{16}.
+\end{equation}
+For the lower bound on $x_2$, use
+\[
+H_2H\le4\bigl(1+b^2+\sqrt{2(1+b^2)}\bigr)
+\le2(5+4b^2).
+\]
+The product bound follows from $b/[4(1+b)^2]\le1/16$.
+
+At $\theta=1$, the coefficient of $a^2$ in
+\eqref{eq-boundary-displacement-quadratic} exceeds
+\[
+\frac98x_1-\frac85x_1^2
+\ge\frac{71}{120}x_1\ge\frac{71}{960}>\frac1{18}.
+\]
+The coefficient of $z^2$ is bounded below by the concave quadratic
+$f_b(t)=(9/8)bt-(8/5)t^2$. Its endpoint values on the interval
+in \eqref{eq-boundary-ratio-ranges} are
+\[
+\frac{9b}{16(1+b)}-\frac2{5(1+b)^2},\qquad
+\frac{b^2\{(9/8)(5+4b^2)-8/5\}}{(5+4b^2)^2}.
+\]
+Both increase with $b$ and exceed $1/18$ at $b=13/20$.
+Using $\ell_0^2bx_1x_2<1/10$ and $2|az|\le a^2+z^2$ gives
+\[
+V_1\ge\frac R3+
+\left(\frac1{18}-\frac1{110}\right)(a^2+z^2)
+\ge\frac38R.
+\]
+
+At $\theta=0$, the coefficient of $a^2$ is nonnegative. Concavity in
+$x_2$ gives
+\[
+\frac43bx_2-4x_2^2
+\ge\min\left\{0,\frac{2b}{3(1+b)}-\frac1{(1+b)^2}\right\}
+\ge-\frac{38}{363}.
+\]
+The last endpoint value increases with $b$.
+Since $4bx_1x_2\le1/4$, the two bounds in
+\eqref{eq-boundary-frame-comparison} imply
+\[
+V_0\ge\frac R3-\frac{38}{363}z^2-\frac1{44}(a^2+z^2)
+\ge\left(\frac13-\frac{38}{363}-\frac3{121}\right)R
+\ge\frac15R.
+\]
+This proves \eqref{eq-boundary-endpoints}. The concave lower bound
+from \eqref{eq-boundary-reweight-loss} therefore yields
+\[
+\begin{split}
+\mathcal R_\lambda+\mathcal B_\lambda
+&\ge\left[
+\lambda\left(\frac38-\frac7{600}\right)
++m\left(\frac15-\frac7{150}\right)\right]R\\
+&\ge\left(\frac9{25}\lambda+\frac3{20}m\right)R.
+\end{split}
+\]
+\end{proof}
+
+\section{The convex deficit}
+
+\begin{lemma}[Affine deficit]
+\label{lem-new-affine-baseline}
+Under \eqref{eq-new-compact-affine},
+\[
+\mathcal N_{\rm aff}\ge
+-b\left(\frac1s-\frac43\right)m^2+
+\delta^2\left(\frac{\lambda^2}{8}
++\frac9{16}\lambda m+\frac{m^2}{3}\right)
++\frac{\gamma^2}{10}.
+\]
+\end{lemma}
+
+\begin{proof}
+First suppose \(\gamma=0\). The normalized weighted second boundary
+moment on the parallelogram is
+\[
+\frac b2(a_\lambda+b_\lambda)
++\frac{\delta^2}{2}a_\lambda.
+\]
+The weighted energy is
+\[
+2bE_\lambda+b(b-b^{-1})^2\lambda^2B.
+\]
+The square eigenfunction identity
+\(\mathcal M_\Omega(u,x)=s^{-1}\mathcal E_\Omega(u,x)\)
+therefore gives
+\[
+\mathcal N_{\rm aff}(b,0)=
+-b\left(\frac1s-\frac43\right)m^2+
+\delta^2\left[
+\frac{a_\lambda}{2}
+-\frac{\lambda^2B(1+b)^2}{8sb}\right].
+\]
+Moreover,
+\[
+a_\lambda=\lambda^2a_\square+2\lambda m\ell_1+\frac23m^2,
+\qquad a_\square=\int_{-1}^1u(t,1)^2\,dt>\frac{49}{100}.
+\]
+Since
+\[
+\frac{(1+b)^2}{b}=b+2+b^{-1}<\frac{21}{5},
+\]
+the coefficient of \(\lambda^2\) satisfies
+\[
+\frac{a_\square}{2}-\frac{B(1+b)^2}{8sb}
+>\frac{49}{200}-\frac{63}{550}
+=\frac18+\frac3{550}>\frac18.
+\]
+Together with \(\ell_1>9/16\), this gives the estimate for \(\gamma=0\).
+
+The normalized weighted second boundary moment of the parallelogram is
+independent of \(\gamma\). Its weighted energy is
+\[
+E_{\rm aff}(b,\gamma)=
+\frac bd\left[
+2E_\lambda+(b-b^{-1})^2\lambda^2B
+-2\gamma^2C_\lambda\right].
+\]
+Consequently,
+\[
+\begin{split}
+E_{\rm aff}(b,0)-E_{\rm aff}(b,\gamma)
+={}&\frac{b(1-d)}d
+\left[2dC_\lambda
+-\lambda^2\bigl(2D_0+(b-b^{-1})^2B\bigr)\right].
+\end{split}
+\]
+The model estimates imply \(C_\lambda>8/5\):
+\[
+C_\lambda>
+\frac85\lambda^2+5\lambda m+4m^2
+\ge\frac85(\lambda+m)^2=\frac85.
+\]
+Also \(d>99/100\) and \((b-b^{-1})^2<21/25\).
+Thus the bracket is larger than
+\[
+2\frac{99}{100}\frac85-\frac14-\frac{21}{25}\frac3{20}
+=\frac{349}{125}>2.
+\]
+The resulting increase in the normalized deficit is at least
+\[
+\frac{b(1-d)}{4sd}
+=\frac{b\gamma^2}{4sd(1+d)}
+\ge\frac{b\gamma^2}{8s}
+\ge\frac{\gamma^2}{10}.
+\]
+Here \(b/(8s)>1/10\).
+\end{proof}
+
+\begin{theorem}[Convex deficit]\label{thm-uniform-convex}
+For every quadrilateral satisfying \eqref{eq-new-compact-affine},
+the physical trial pair satisfies
+\begin{equation}\label{eq-new-global-positive}
+\mathcal N\ge\frac1{200}
+\left(\delta^2\lambda^2+\gamma^2+\lambda R+b^2m^2\right).
+\end{equation}
+In particular, \(\mathcal J(Q)<8s\) unless \(Q\) is a square.
+\end{theorem}
+
+\begin{proof}
+We first compare the displacement with the mixed term in
+\eqref{eq-new-Q}. Cauchy--Schwarz in the metric $W$ gives
+\[
+\begin{split}
+(1+b)^2(h+k)^2
+&\le
+\frac{(b+b^{-1}+2)(b+b^{-1}+2\rho)}{1-\rho^2}R\\
+&\le\frac{121}{12}R\le\frac{256}{25}R.
+\end{split}
+\]
+Here $b+b^{-1}+2<21/5$ and $b+b^{-1}+2\rho<19/8$ on
+\eqref{eq-new-compact-affine}. Also
+$R\ge2b(1-\rho)hk$, so \eqref{eq-new-Q} and the square moments imply
+\[
+\begin{split}
+E_{\rm corr}
+&\le\frac{61}{80}R+
+\frac3{20}\delta\sqrt m\,(1+b)(h+k)\\
+&\le\frac{61}{80}R+\frac{12}{25}\delta\sqrt{mR}.
+\end{split}
+\]
+The energy coefficient satisfies
+\[
+\frac{b+b^{-1}+2\gamma}{8sd}
+<\frac{19/8}{(11/2)(99/100)}<\frac7{16}.
+\]
+Applying Lemmas~\ref{lem-new-combined-boundary} and
+\ref{lem-new-affine-baseline} in \eqref{eq-new-global-exact}, with
+$1/s-4/3<4/33$, gives
+\[
+\begin{split}
+\mathcal N\ge{}&
+\frac{\delta^2\lambda^2}{8}+\frac{\gamma^2}{10}
++\left(\frac9{25}-\frac{61}{80}\frac7{16}\right)\lambda R\\
+&+\frac9{16}\delta^2\lambda m
+-\frac{21}{100}\lambda\delta\sqrt{mR}
++\left(\frac{\delta^2}{3}-\frac{4b}{33}\right)m^2
++\frac3{20}mR.
+\end{split}
+\]
+The mixed terms have the square completion
+\[
+\frac9{16}\delta^2m-\frac{21}{100}\delta\sqrt{mR}
+=\left(\frac34\delta\sqrt m-\frac7{50}\sqrt R\right)^2
+-\frac{49}{2500}R,
+\]
+with residual coefficient
+\[
+\frac9{25}-\frac{61}{80}\frac7{16}-\frac{49}{2500}
+=\left(\frac{33}{400}\right)^2>\frac1{200}.
+\]
+For the terms containing $m^2$, use
+\[
+R-b^2m=(1-b^2)h^2+2b(b+\gamma)hk\ge0
+\]
+and
+\[
+\frac{(1-b)^2}{3}-\frac{4b}{33}+\frac{3b^2}{20}
+\ge\frac13\left(1-\frac{13b}{11}\right)^2+\frac{b^2}{60}.
+\]
+Consequently,
+\[
+\begin{split}
+\mathcal N\ge{}&
+\frac{\delta^2\lambda^2}{8}+\frac{\gamma^2}{10}
++\left(\frac{33}{400}\right)^2\lambda R+\frac{b^2m^2}{60}\\
+&+\lambda\left(\frac34\delta\sqrt m-\frac7{50}\sqrt R\right)^2
++\frac{m^2}{3}\left(1-\frac{13b}{11}\right)^2,
+\end{split}
+\]
+which proves \eqref{eq-new-global-positive}.
+
+Both physical traces are nonconstant: their centrally odd parts on the
+reference boundary are nonzero linear combinations of the independent
+functions $w_\lambda,z_\lambda$. Summing \eqref{eq-rayleigh-deficit}
+for the two trials gives $\mathcal J(Q)<8s$ when $\mathcal N>0$.
+Since $\lambda>0$, the right side of \eqref{eq-new-global-positive}
+vanishes only if $\delta=\gamma=0$ and $R=0$. These conditions give
+$h=k=0$, so $Q$ is a square.
+\end{proof}
+
+\section{Quantitative stability}
+
+\begin{proof}[Proof of Theorem~\ref{thm-stability}]
+Put $S=h^2+k^2$ and $\varepsilon=\sqrt{\delta^2+\gamma^2}$.
+The convex deficit controls the quadratic displacement throughout
+\eqref{eq-new-compact-affine}, since
+\[
+R\ge(b^2-b\rho)S\ge\frac13S.
+\]
+If $\lambda\ge1/2$, the first three terms in
+\eqref{eq-new-global-positive} control $S+\varepsilon^2$.
+If $\lambda<1/2$, then $m>1/2$; the last term is uniformly positive,
+while $S$ and $\varepsilon$ are bounded. On the reference boundary,
+$|w_\lambda|,|z_\lambda|\le1$, and
+$(1+h)^2+(1+k)^2<5$. Hence
+\[
+|A(F_\lambda,G_\lambda)^{\mathsf T}|^2
+\le(1+\rho)(F_\lambda^2+G_\lambda^2)<6.
+\]
+The sum of the two normalized boundary variances is therefore at most
+$6$, and \eqref{eq-rayleigh-deficit} gives
+\begin{equation}\label{eq-new-quadratic-global}
+8s-\mathcal J(Q)\ge c_0(S+\varepsilon^2)
+\end{equation}
+for a fixed $c_0>0$.
+
+The linear affine contribution is detected by the deficit form on
+$\operatorname{span}\{u,v\}$. For the transported square functions, write
+\[
+\mathbf K_Q=
+\begin{pmatrix}
+D_Q(u,u)&D_Q(u,v)\\
+D_Q(u,v)&D_Q(v,v)
+\end{pmatrix},
+\]
+and define $\mathbf K_\Pi$ in the same way on $\Pi=A\Omega$.
+Let $M_\square=4/(1+r^2)$. Separated integration gives
+\[
+\begin{split}
+D_\Pi(u,u)&=\frac{a_\square+bb_\square}{2(1+b)}
+-\frac{b(E-B)+b^{-1}B}{8sd},\\
+D_\Pi(v,v)&=\frac{b_\square+ba_\square}{2(1+b)}
+-\frac{bB+b^{-1}(E-B)}{8sd},\\
+D_\Pi(u,v)&=\frac{\gamma C}{8sd}.
+\end{split}
+\]
+The square identities
+\[
+a_\square+b_\square=\frac{M_\square}{2},\qquad
+b_\square-a_\square=
+\frac{M_\square}{2}\left(\frac r\tau-r^2\right),
+\]
+\[
+E=sM_\square,\qquad
+E-2B=\frac{M_\square}{2}
+\left[\tau^2(1-r^4)+r^2\right],\qquad
+C=\frac{M_\square}{2}(1+r^4)
+\]
+therefore yield
+\begin{equation}\label{eq-deficit-matrix-expansion}
+\mathbf K_\Pi=
+\begin{pmatrix}
+\alpha_0\delta&\beta_0\gamma\\
+\beta_0\gamma&-\alpha_0\delta
+\end{pmatrix}+O(\varepsilon^2),
+\end{equation}
+where
+\[
+\alpha_0=\frac{M_\square}{16}
+\left[\frac\tau r(1-r^4)+r^2\right]>0,\qquad
+\beta_0=\frac{M_\square(1+r^4)}{16s}>0.
+\]
+
+The displacement changes this matrix by $O(S)$. Indeed, the paired
+side-length functions satisfy, uniformly near the square,
+\[
+H_i-2|Ae_i|=O(S),\qquad \mathbf d=O(\sqrt S),\qquad
+P(Q)-P(\Pi)=O(S),
+\]
+where $e_1,e_2$ are the standard coordinate vectors.
+The boundary second moments change by $O(S)$, and their centering
+correction is quadratic in $\mathbf d$. Lemma~\ref{lem-new-tent-energy},
+with $c=0$ and polarization, gives an $O(S)$ change in the energy form.
+Thus $\mathbf K_Q-\mathbf K_\Pi=O(S)$ in matrix norm.
+The largest eigenvalue of the first matrix in
+\eqref{eq-deficit-matrix-expansion} is
+$\sqrt{\alpha_0^2\delta^2+\beta_0^2\gamma^2}$. It follows that
+\[
+\lambda_{\max}(\mathbf K_Q)
+=\sqrt{\alpha_0^2\delta^2+\beta_0^2\gamma^2}
++O(\varepsilon^2+S)
+\ge c_1\varepsilon-C_1S
+\]
+in a fixed neighborhood of the square.
+
+Choose a unit eigenvector $\zeta=(\zeta_1,\zeta_2)$ for
+$\lambda_{\max}(\mathbf K_Q)$ and put $w=\zeta_1u+\zeta_2v$.
+Its trace is nonconstant, and its normalized boundary variance is at most
+$2$, since $|w|^2\le u^2+v^2\le2$.
+The nonnegativity of $8s-\mathcal J(Q)$ and
+\eqref{eq-rayleigh-deficit} imply
+\[
+8s-\mathcal J(Q)\ge4s\,\lambda_{\max}(\mathbf K_Q)
+\ge c_2\varepsilon-C_2S.
+\]
+Adding $1+C_2/c_0$ times \eqref{eq-new-quadratic-global} to this inequality gives
+\[
+8s-\mathcal J(Q)\ge c_3(S+\varepsilon)
+\]
+near the square. Outside that neighborhood, $S+\varepsilon^2$ controls
+$S+\varepsilon$ by a fixed positive factor on
+\eqref{eq-new-compact-affine}. Combining this with the uniform gap from
+Lemma~\ref{lem-diagonal-exclusion} proves the theorem.
+\end{proof}
+
+\section{Concave quadrilaterals and completion}
+
+\begin{lemma}\label{lem-concave}
+A concave quadrilateral satisfies $\mathcal J(Q)<3\sqrt3$.
+A triangle represented with one redundant vertex satisfies
+$\mathcal J(Q)\le3\sqrt3$.
+\end{lemma}
+\begin{proof}
+Let the neighbors of the reflex vertex be $a,b$, and let $w$ be the fourth
+vertex. The reflex vertex lies inside the triangle $abw$. Normalize
+$a=(-1,0)$, $b=(1,0)$, and denote the outer and inner intermediate vertices
+by $(x,H)$ and $(z,h)$, where $H>h\ge0$. Let the two broken-line lengths
+be $2r_1$ and $2r_2$. Convexity of the sum of distances to $a,b$ gives
+$1\le r_2\le r_1$. The outer point lies on an ellipse, so
+\[
+|Q|=H-h<\sqrt{r_1^2-1}.
+\]
+For a redundant vertex the inner chain is the segment $ab$, and the last
+inequality becomes non-strict, with $r_2=1$ and $h=0$.
+
+The boundary probability measure is the mixture of the two broken-line
+measures with weights $r_1/(r_1+r_2)$ and $r_2/(r_1+r_2)$.
+Lemma~\ref{lem-broken-line} and the variance-mixture identity show that the
+sum $V$ of the two coordinate variances satisfies
+\[
+V\ge a_*+b_*|Q|^2,\qquad
+a_*=\frac{r_1^2-r_1r_2+r_2^2+3}{12},\qquad
+b_*=\frac{r_1r_2}{4(r_1+r_2)^2}.
+\]
+The last term comes from the squared difference of the vertical means,
+which is $|Q|^2/4$. Adding the two coordinate Rayleigh inequalities gives
+\[
+\mathcal J(Q)\le\frac{2A}{a_*+b_*|Q|^2}.
+\]
+This ratio is increasing for $0\le |Q|\le\sqrt{r_1^2-1}$, since
+\[
+12(r_1+r_2)^2\bigl(a_*-b_*(r_1^2-1)\bigr)
+=(r_1^2-r_1r_2-r_2^2)^2+r_1r_2^2(r_1-r_2)
++3r_1^2+9r_1r_2+3r_2^2>0.
+\]
+Set $F(r_1,r_2)=a_*+b_*(r_1^2-1)$. With $\eta=r_1-r_2\ge0$,
+\[
+\partial_{r_2}F=
+\frac{2d^4+4r_2d^3+3(r_2^2-1)\eta^2+(7r_2^3-3r_2)\eta+8r_2^4}
+{12(r_1+r_2)^3}>0.
+\]
+Consequently
+\[
+F(r_1,r_2)\ge F(r_1,1)=\frac{r_1^3+3r_1^2+4}{12(r_1+1)}.
+\]
+The final comparison factors as
+\[
+F(r_1,1)^2-\frac4{27}(r_1^2-1)
+=\frac{(r_1-2)^2(r_1+2)(r_1+7)(3r_1^2+3r_1+2)}
+{432(r_1+1)^2}\ge0.
+\]
+These inequalities prove the assertion. Strictness in the concave case follows from $|Q|<\sqrt{r_1^2-1}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm-main}]
+For a convex quadrilateral with four genuine corners, apply
+Lemma~\ref{lem-diagonal-exclusion} or Theorem~\ref{thm-uniform-convex}. The latter is strict unless $b=1$ and $\gamma=h=k=0$, and these
+parameters describe a square. A square attains $8s$ by
+Lemma~\ref{lem-square-model-bounds}. Every remaining simple quadrilateral
+is concave or a triangle with a redundant vertex; apply
+Lemma~\ref{lem-concave}, noting that $3\sqrt3<11/2<8s$.
+The fixed-perimeter statement follows from similarity invariance.
+\end{proof}
+
+\appendix
+\section{Elementary square moments}\label{app-square}
+
+The root relation gives \(r=\cot\tau\). Separated integration yields
+\begin{align*}
+a_\square&=1-\frac{\sin(2\tau)}{2\tau},
+&a_\square+b_\square&=\frac2{1+r^2},\\
+\ell_0&=\frac{2\cos\tau}{\tau},
+&\ell_1&=\frac{2\sin\tau(1-s)}{\tau^2},\\
+E&=2\tau\sin(2\tau),
+&C&=\frac{2(1+r^4)}{1+r^2},\\
+B&=\frac E2-\tau^2(1-r^2)-\frac{r^2}{1+r^2},
+&\int_{\Omega_\square}\partial_xu&=2\ell_0.
+\end{align*}
+
+Put
+\[
+f(t)=\cos t\cosh t-\sin t\sinh t,\qquad
+p(t)=1-t^2-\frac{t^4}{6}+\frac{t^6}{90}+\frac{t^8}{2520}.
+\]
+The alternating series for the two products give, on \([0,1]\),
+\[
+p(t)-\frac{t^{10}}{113400}-\frac{t^{12}}{7484400}
+\le f(t)\le p(t).
+\]
+For \(\tau_-=15/16\) and \(\tau_+=586/625\),
+\[
+p(\tau_-)-\frac{\tau_-^{10}}{113400}
+-\frac{\tau_-^{12}}{7484400}>0>p(\tau_+).
+\]
+Since \(f'(t)=-2\sin t\cosh t<0\), we have
+\(\tau_-<\tau<\tau_+\).
+
+Define the Taylor polynomials
+\[
+S_j(t)=\sum_{i=0}^j\frac{(-1)^it^{2i+1}}{(2i+1)!},\qquad
+C_j(t)=\sum_{i=0}^j\frac{(-1)^it^{2i}}{(2i)!}.
+\]
+On \([0,2]\),
+\[
+S_3(t)\le\sin t\le S_4(t),\qquad
+C_3(t)\le\cos t\le C_4(t).
+\]
+Since $\cot t$ decreases on $[\tau_-,\tau_+]$,
+\[
+\frac{C_3(\tau_+)}{S_4(\tau_+)}<r<
+\frac{C_4(\tau_-)}{S_3(\tau_-)},\qquad
+\frac7{13}<r^2<\frac{27}{50},\qquad
+\frac{11}{16}<s<\frac{69}{100}.
+\]
+The remaining estimates follow from these parameter bounds. In fact,
+$r/(1+r^2)$ increases for $0<r<1$, so
+\[
+a_\square=1-\frac{r}{\tau(1+r^2)}
+>1-\frac{\sqrt{27/50}}{\tau_-(1+27/50)}>\frac{49}{100},
+\]
+\[
+E=\frac{4\tau r}{1+r^2}
+<\frac{4\tau_+\sqrt{27/50}}{1+27/50}<\frac{43}{24}.
+\]
+Also $\ell_0^2=4r^2/[\tau^2(1+r^2)]$, whence
+\[
+\left(\frac{121}{96}\right)^2
+<\frac7{5\tau_+^2}<\ell_0^2
+<\frac{108}{77\tau_-^2}<\frac85.
+\]
+The identity
+\[
+b_\square-a_\square
+=\frac{2r}{1+r^2}\left(\frac1\tau-r\right)>0
+\]
+and \(a_\square+b_\square<13/10\) give
+\(a_\square\le b_\square<81/100\).
+Green's identity for $u$ and the coordinate function $x$ gives
+\[
+2\ell_0=2s(\ell_0+\ell_1),\qquad
+\ell_1=(s^{-1}-1)\ell_0.
+\]
+Consequently,
+\[
+\ell_1>\frac{121}{96}\frac{31}{69}>\frac9{16},\qquad
+\ell_1<\frac43\frac5{11}<\frac23.
+\]
+The bounds on \(E\) and \(\ell_0\) imply
+\[
+C_*=E-4\ell_0+4<\frac{43}{24}-\frac{121}{24}+4=\frac34.
+\]
+Also,
+\[
+0<B<\frac9{10}-\left(\frac{15}{16}\right)^2\frac{23}{50}
+-\frac7{20}<\frac3{20}.
+\]
+Since \(r^2>1/2\),
+\[
+C-\frac53=
+\frac{(3r^2-1)(2r^2-1)}{3(1+r^2)}>0.
+\]
+Finally,
+\[
+D_0=\frac{2(2s-1-r^4)}{1+r^2}>0,\qquad
+D_0=E-C<\frac{43}{24}-\frac53=\frac18.
+\]
+The first inequality follows from \(2s>11/8\) and
+\(r^4<(27/50)^2<3/8\).
+
+\begin{thebibliography}{99}
+\raggedbottom
+
+\bibitem{AkhmetgaliyevEtAl2017}
+E. Akhmetgaliyev, C.-Y. Kao, and B. Osting,
+\href{https://doi.org/10.1137/16M1067263}{\emph{Computational methods for extremal Steklov problems}},
+SIAM J. Control Optim. \textbf{55} (2017), no.~2, 1226--1240.
+
+\bibitem{AuchmutyCho2015}
+G. Auchmuty and M. Cho,
+\href{https://doi.org/10.1080/01630563.2015.1031383}{\emph{Boundary integrals and approximations of harmonic functions}},
+Numer. Funct. Anal. Optim. \textbf{36} (2015), no.~6, 687--703.
+
+\bibitem{Bogosel2016}
+B. Bogosel,
+\href{https://doi.org/10.1016/j.cam.2016.04.008}{\emph{The method of fundamental solutions applied to boundary eigenvalue problems}},
+J. Comput. Appl. Math. \textbf{306} (2016), 265--285.
+
+\bibitem{Bogosel2017}
+B. Bogosel,
+\href{https://doi.org/10.1007/s00245-015-9321-5}{\emph{The Steklov spectrum on moving domains}},
+Appl. Math. Optim. \textbf{75} (2017), no.~1, 1--25.
+
+\bibitem{BogoselBucur2024}
+B. Bogosel and D. Bucur,
+\href{https://doi.org/10.5802/jep.250}{\emph{On the polygonal Faber--Krahn inequality}},
+J. \'Ec. polytech. Math. \textbf{11} (2024), 19--105.
+
+\bibitem{BogoselBucurGiacomini2017}
+B. Bogosel, D. Bucur, and A. Giacomini,
+\href{https://doi.org/10.1137/16M1075260}{\emph{Optimal shapes maximizing the Steklov eigenvalues}},
+SIAM J. Math. Anal. \textbf{49} (2017), no.~2, 1645--1680.
+
+\bibitem{BrascoEtAl2012}
+L. Brasco, G. De Philippis, and B. Ruffini,
+\href{https://doi.org/10.1016/j.jfa.2012.03.017}{\emph{Spectral optimization for the Stekloff--Laplacian: the stability issue}},
+J. Funct. Anal. \textbf{262} (2012), no.~11, 4675--4710.
+
+\bibitem{Brock2001}
+F. Brock,
+\href{https://doi.org/10.1002/1521-4001(200101)81:1\%3C69::AID-ZAMM69\%3E3.0.CO;2-\%23}{\emph{An isoperimetric inequality for eigenvalues of the Stekloff problem}},
+ZAMM Z. Angew. Math. Mech. \textbf{81} (2001), no.~1, 69--71.
+
+\bibitem{BucurEtAl2021}
+D. Bucur, V. Ferone, C. Nitsch, and C. Trombetti,
+\href{https://doi.org/10.4310/JDG/1620272940}{\emph{Weinstock inequality in higher dimensions}},
+J. Differential Geom. \textbf{118} (2021), no.~1, 1--21.
+
+\bibitem{BucurFragala2021}
+D. Bucur and I. Fragal\`a,
+\href{https://doi.org/10.1051/cocv/2020083}{\emph{Symmetry results for variational energies on convex polygons}},
+ESAIM Control Optim. Calc. Var. \textbf{27} (2021), Art.~3.
+
+\bibitem{BucurNahon2021}
+D. Bucur and M. Nahon,
+\href{https://doi.org/10.1090/tran/8302}{\emph{Stability and instability issues of the Weinstock inequality}},
+Trans. Amer. Math. Soc. \textbf{374} (2021), no.~3, 2201--2223.
+
+\bibitem{ChengEtAl2026}
+Z. Cheng, C. Gui, Y. Hu, Q. Li, and R. Yao,
+\emph{Global strict monotonicity and asymptotics of the first Steklov eigenvalue for regular polygons}, preprint,
+\href{https://arxiv.org/abs/2603.25116v2}{arXiv:2603.25116v2} (2026).
+
+\bibitem{ColboisEtAl2024}
+B. Colbois, A. Girouard, C. Gordon, and D. Sher,
+\href{https://doi.org/10.1007/s13163-023-00480-3}{\emph{Some recent developments on the Steklov eigenvalue problem}},
+Rev. Mat. Complut. \textbf{37} (2024), no.~1, 1--161.
+
+\bibitem{DrydenEtAl2025}
+E. B. Dryden, C. Gordon, J. Moreno, J. Rowlett, and C. Villegas-Blas,
+\href{https://doi.org/10.1007/s12220-025-01922-8}{\emph{The Steklov spectrum of convex polygonal domains I: Spectral finiteness}},
+J. Geom. Anal. \textbf{35} (2025), no.~3, Art.~91.
+
+\bibitem{DrydenEtAl2026}
+E. B. Dryden, C. Gordon, J. Moreno, J. Rowlett, and C. Villegas-Blas,
+\href{https://doi.org/10.1007/s12220-026-02597-5}{\emph{The Steklov spectrum of convex polygonal domains II: Investigating spectral determination}},
+J. Geom. Anal. \textbf{36} (2026), no.~11, Art.~346.
+
+\bibitem{FraserSchoen2011}
+A. Fraser and R. Schoen,
+\href{https://doi.org/10.1016/j.aim.2010.11.007}{\emph{The first Steklov eigenvalue, conformal geometry, and minimal surfaces}},
+Adv. Math. \textbf{226} (2011), no.~5, 4011--4030.
+
+\bibitem{FraserSchoen2016}
+A. Fraser and R. Schoen,
+\href{https://doi.org/10.1007/s00222-015-0604-x}{\emph{Sharp eigenvalue bounds and minimal surfaces in the ball}},
+Invent. Math. \textbf{203} (2016), no.~3, 823--890.
+
+\bibitem{GirouardKarpukhinLagace2021}
+A. Girouard, M. Karpukhin, and J. Lagac\'e,
+\href{https://doi.org/10.1007/s00039-021-00573-5}{\emph{Continuity of eigenvalues and shape optimisation for Laplace and Steklov problems}},
+Geom. Funct. Anal. \textbf{31} (2021), no.~3, 513--561.
+
+\bibitem{GirouardEtAl2019}
+A. Girouard, J. Lagac\'e, I. Polterovich, and A. Savo,
+\href{https://doi.org/10.1112/S0025579318000414}{\emph{The Steklov spectrum of cuboids}},
+Mathematika \textbf{65} (2019), no.~2, 272--310.
+
+\bibitem{GirouardPolterovich2010}
+A. Girouard and I. Polterovich,
+\href{https://doi.org/10.1007/s10688-010-0014-1}{\emph{On the Hersch--Payne--Schiffer inequalities for Steklov eigenvalues}},
+Funct. Anal. Appl. \textbf{44} (2010), no.~2, 106--117.
+
+\bibitem{GirouardPolterovich2017}
+A. Girouard and I. Polterovich,
+\href{https://doi.org/10.4171/JST/164}{\emph{Spectral geometry of the Steklov problem}},
+J. Spectr. Theory \textbf{7} (2017), no.~2, 321--359.
+
+\bibitem{GuiHuLi2026}
+C. Gui, Y. Hu, and Q. Li,
+\emph{A quantitative P\'olya--Szeg\H{o} theorem for tangential polygons}, preprint,
+\href{https://arxiv.org/abs/2607.28768v2}{arXiv:2607.28768v2} (2026).
+
+\bibitem{GuiHuLiYang2026}
+C. Gui, Y. Hu, Q. Li, and H. Yang,
+\emph{A quantitative Robin P\'olya--Szeg\H{o} theorem for tangential polygons}, preprint,
+\href{https://arxiv.org/abs/2610.21417}{arXiv:2610.21417} (2026).
+
+\bibitem{GuiHuLiZhang2026}
+C. Gui, Y. Hu, Q. Li, and C. Zhang,
+\emph{Mixed torsion on right triangles and the P\'olya--Szeg\H{o} monotonicity problem for regular polygons}, preprint,
+\href{https://arxiv.org/abs/2606.13448}{arXiv:2606.13448} (2026).
+
+\bibitem{HerschPayneSchiffer1974}
+J. Hersch, L. E. Payne, and M. M. Schiffer,
+\href{https://doi.org/10.1007/BF00248412}{\emph{Some inequalities for Stekloff eigenvalues}},
+Arch. Rational Mech. Anal. \textbf{57} (1974), no.~2, 99--114.
+
+\bibitem{KrymskiEtAl2021}
+S. Krymski, M. Levitin, L. Parnovski, I. Polterovich, and D. A. Sher,
+\href{https://doi.org/10.1093/imrn/rnaa200}{\emph{Inverse Steklov spectral problem for curvilinear polygons}},
+Int. Math. Res. Not. IMRN \textbf{2021} (2021), no.~1, 1--37.
+
+\bibitem{LevitinEtAl2022}
+M. Levitin, L. Parnovski, I. Polterovich, and D. A. Sher,
+\href{https://doi.org/10.1112/plms.12461}{\emph{Sloshing, Steklov and corners: Asymptotics of Steklov eigenvalues for curvilinear polygons}},
+Proc. Lond. Math. Soc. (3) \textbf{125} (2022), no.~3, 359--487.
+
+\bibitem{Polya1948}
+G. P\'olya,
+\href{https://doi.org/10.1090/qam/26817}{\emph{Torsional rigidity, principal frequency, electrostatic capacity and symmetrization}},
+Quart. Appl. Math. \textbf{6} (1948), no.~3, 267--277.
+
+\bibitem{PolyaSchiffer1954}
+G. P\'olya and M. Schiffer,
+\href{https://doi.org/10.1007/BF02803593}{\emph{Convexity of functionals by transplantation}},
+J. Analyse Math. \textbf{3} (1953--1954), 245--345.
+
+\bibitem{Szego1954}
+G. Szeg\H{o},
+\href{https://doi.org/10.1512/iumj.1954.3.53017}{\emph{Inequalities for certain eigenvalues of a membrane of given area}},
+J. Rational Mech. Anal. \textbf{3} (1954), no.~3, 343--356.
+
+\bibitem{Tan2017}
+A. Tan,
+\emph{The Steklov problem on rectangles and cuboids}, preprint,
+\href{https://arxiv.org/abs/1711.00819}{arXiv:1711.00819} (2017).
+
+\bibitem{Weinberger1956}
+H. F. Weinberger,
+\href{https://doi.org/10.1512/iumj.1956.5.55021}{\emph{An isoperimetric inequality for the N-dimensional free membrane problem}},
+J. Rational Mech. Anal. \textbf{5} (1956), no.~4, 633--636.
+
+\bibitem{Weinstock1954}
+R. Weinstock,
+\href{https://doi.org/10.1512/iumj.1954.3.53036}{\emph{Inequalities for a classical eigenvalue problem}},
+J. Rational Mech. Anal. \textbf{3} (1954), no.~6, 745--753.
+
+\end{thebibliography}
+\end{document}
