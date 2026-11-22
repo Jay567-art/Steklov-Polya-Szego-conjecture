@@ -36,8 +36,8 @@ The approach combines affine transplantation, boundary moment identities, and Re
 For every simple nondegenerate quadrilateral $Q$, including nonconvex ones,
 
 ```math
-P(Q)\,\sigma_1(Q)\le 8\tau\tanh\tau,
-\qquad \tan\tau\,\tanh\tau=1,\quad 0<\tau<\pi/2,
+P(Q)\,\sigma_1(Q)\le 8\tau\,\tanh(\tau),
+\qquad \tan(\tau)\,\tanh(\tau)=1,\quad 0<\tau<\frac{\pi}{2},
 ```
 
 with equality precisely for squares. The manuscript also proves quantitative stability for convex quadrilaterals, linear in affine distortion and quadratic in diagonal-midpoint displacement near the square.
