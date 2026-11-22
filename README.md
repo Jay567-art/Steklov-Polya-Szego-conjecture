@@ -33,14 +33,14 @@ The approach combines affine transplantation, boundary moment identities, and Re
 
 [Read PDF](N4_Quadrilateral.pdf) | [LaTeX source](N4_Quadrilateral.tex)
 
-For every simple nondegenerate quadrilateral $Q$, convex or nonconvex, the manuscript proves
-$
+For every simple nondegenerate quadrilateral $Q$, including nonconvex ones,
+$$
 P(Q)\,\sigma_1(Q)\le 8\tau\tanh\tau,
 \qquad \tan\tau\,\tanh\tau=1,\quad 0<\tau<\pi/2,
-$
-with equality only for squares. For convex quadrilaterals with four genuine corners, it also gives quantitative stability: the deficit controls affine distortion linearly and displacement of the diagonal midpoints quadratically near the square.
+$$
+with equality precisely for squares. The manuscript also proves quantitative stability for convex quadrilaterals, linear in affine distortion and quadratic in diagonal-midpoint displacement near the square.
 
-The proof is purely analytic. In the convex case, a piecewise-affine map across a diagonal transports trial functions that interpolate between the square's first Steklov eigenfunctions and the coordinate functions. In the nonconvex case, a boundary-variance estimate gives a strict bound below the square's value.
+The proof is purely analytic, using piecewise-affine transplantation along a diagonal and boundary variance estimates.
 
 ## Additional manuscripts
 
