@@ -1,0 +1,1020 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[a4paper,margin=30mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{microtype}
+% Independent environment names with a shared theorem counter.
+\makeatletter
+\newcommand{\sharedtheoremcounter}[2]{%
+  \expandafter\let\csname c@#1\expandafter\endcsname\csname c@#2\endcsname
+  \expandafter\let\csname the#1\expandafter\endcsname\csname the#2\endcsname
+  \expandafter\let\csname theH#1\expandafter\endcsname\csname theH#2\endcsname
+  \expandafter\let\csname p@#1\expandafter\endcsname\csname p@#2\endcsname
+  \expandafter\let\csname cl@#1\expandafter\endcsname\csname cl@#2\endcsname
+}
+\newcommand{\resettheoremnumber}[1]{%
+  \expandafter\let\csname the#1\endcsname\thetheorem
+}
+\makeatother
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev,capitalise]{cleveref}
+
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\sharedtheoremcounter{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\resettheoremnumber{proposition}
+\sharedtheoremcounter{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\resettheoremnumber{lemma}
+\sharedtheoremcounter{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\resettheoremnumber{corollary}
+\theoremstyle{remark}
+\sharedtheoremcounter{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\resettheoremnumber{remark}
+\makeatletter
+\@addtoreset{proposition}{section}
+\@addtoreset{lemma}{section}
+\@addtoreset{corollary}{section}
+\@addtoreset{remark}{section}
+\makeatother
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\ii}{\mathrm i}
+\newcommand{\ee}{\mathrm e}
+\newcommand{\om}{\omega}
+\newcommand{\Ray}{\mathcal R}
+\newcommand{\An}{\mathcal A}
+\DeclareMathOperator{\artanh}{artanh}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Rea}{Re}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\Id}{Id}
+\setlength{\emergencystretch}{2em}
+\linespread{1.06}
+
+\title[A sharp Steklov inequality for triangles]{The sharp Steklov inequality for triangles and its linear stability}
+\author{Zhuo Cheng}
+\author{Yi'an Zhang}
+\hypersetup{pdfauthor={Zhuo Cheng and Yi'an Zhang}}
+\date{}
+\subjclass[2020]{35P15, 49Q10, 58J50}
+\keywords{Steklov eigenvalue, triangle, perimeter constraint, affine transplantation, boundary variance, Rellich identity}
+
+\begin{document}
+\begin{abstract}
+We settle the triangular case of the perimeter-constrained polygonal
+P\'olya--Szeg\H{o} conjecture for the Steklov problem, proving
+the sharp eigenvalue inequality, rigidity of the extremizer, and
+optimal linear stability. For every nondegenerate triangle $T$, we show that
+\[
+ P(T)\sigma_1(T)\le 3\sigma_1(E),
+\]
+where $E$ denotes the equilateral triangle of unit side length, with equality if and only if $T$ is equilateral. Furthermore, the normalized spectral deficit obeys the global two-sided bound
+\[
+ c\,d(T)\le 1-\frac{P(T)\sigma_1(T)}{3\sigma_1(E)}
+ \le C\,d(T),\qquad
+ d(T)=\frac{3\ell_{\max}(T)}{P(T)}-1.
+\]
+The argument relies on transplanting a single first Steklov eigenfunction of $E$ via an affine map that sends a distinguished edge of $E$ to a longest side of $T$. Exact boundary moment identities for this mode absorb the zero-mean correction, while a transverse Dirichlet energy bound reduces the interior comparison to Heron's formula. The reference eigenfunction is isolated through Neumann spectral separation, and its moment and directional energy identities are derived from a third-order boundary differential equation combined with Rellich identities.
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+The Steklov eigenvalue problem links the spectral geometry of a domain
+directly to the metric structure of its boundary. On a bounded
+connected Lipschitz domain $\Omega\subset\R^2$, the first nonzero
+Steklov eigenvalue is characterized variationally by
+\begin{equation}\label{eq:variational}
+ \sigma_1(\Omega)=
+ \min_{\substack{f\in H^1(\Omega),\ \int_{\partial\Omega}f\,\dd s=0\\
+                    \int_{\partial\Omega}f^2\,\dd s>0}}
+ \frac{\int_\Omega|\nabla f|^2\,\dd A}
+      {\int_{\partial\Omega}f^2\,\dd s}.
+\end{equation}
+Any minimizing eigenfunction is harmonic in $\Omega$ and satisfies
+$\partial_\nu f=\sigma_1(\Omega)f$ weakly on $\partial\Omega$.
+Because the Rayleigh quotient \eqref{eq:variational} pairs the interior Dirichlet energy against
+a boundary $L^2$ norm and a boundary orthogonality constraint, geometric optimization of Steklov
+eigenvalues hinges on the interplay between bulk gradients and boundary arclength; see the surveys \cite{GP,CGGS}. Under dilation,
+\begin{equation}\label{eq:scaling}
+ \sigma_1(a\Omega)=a^{-1}\sigma_1(\Omega),\qquad
+ P(a\Omega)\sigma_1(a\Omega)=P(\Omega)\sigma_1(\Omega),\qquad a>0,
+\end{equation}
+so $P(\Omega)\sigma_1(\Omega)$ is the natural scale-invariant quantity under a perimeter constraint.
+
+A classic theorem of Weinstock \cite{Weinstock} states that the disk
+maximizes $P(\Omega)\sigma_1(\Omega)$ among all simply connected planar domains. Restricting $\Omega$ to polygons with at most $N$ sides replaces the disk with the regular $N$-gon as the expected maximizer, leading to the polygonal Steklov problem studied in \cite{CGHLY} as a boundary counterpart to the polygonal isoperimetric problems of P\'olya and Szeg\H{o} \cite{PS,Henrot}. One may investigate this problem either by varying the number of sides along the family of regular polygons, or by fixing the side count $N$ and varying the polygon. Cheng, Gui, Hu, Li, and Yao \cite{CGHLY} recently proved that the perimeter-normalized first Steklov eigenvalue increases strictly with $N$ along regular $N$-gons. Here we resolve the complementary fixed-$N$ problem in its first case $N=3$: among all triangles of given perimeter, the equilateral triangle is the unique maximizer of $\sigma_1$.
+
+Let $E$ be an equilateral triangle of unit side length and write
+$\sigma_*:=\sigma_1(E)$.
+\begin{theorem}\label{thm:main}
+Every nondegenerate triangle $T$ satisfies
+\begin{equation}\label{eq:main}
+ P(T)\sigma_1(T)\le 3\sigma_*.
+\end{equation}
+Equality holds if and only if $T$ is equilateral.
+\end{theorem}
+
+The rigidity of the equilateral extremizer in Theorem~\ref{thm:main} naturally raises the question of quantitative stability. In Steklov spectral optimization, stability depends strongly on the admissible geometric class. Bucur and Nahon \cite{BN} proved that the classical planar Weinstock inequality is unstable among smooth simply connected domains: the perimeter-normalized first Steklov eigenvalue can approach its maximal value along sequences of domains converging geometrically to a prescribed smooth noncircular simply connected domain. In contrast, quantitative stability holds within the class of convex planar domains, with a sharp Hausdorff-asymmetry exponent established by Gavitone, La Manna, Paoli, and Trani \cite{GLPT}. Convexity also plays a central role in higher dimensions, where Bucur, Ferone, Nitsch, and Trombetti \cite{BFNT} established the Weinstock inequality for convex domains of prescribed boundary measure, with balls as the unique maximizers. These results lead naturally to the question of determining the optimal order of the spectral deficit among triangles in terms of their deviation from the equilateral shape.
+
+To quantify this deviation, let $\ell_{\max}(T)$ denote the length of a longest side of $T$ and set
+\begin{equation}\label{eq:side-defect}
+ d(T):=\frac{3\ell_{\max}(T)}{P(T)}-1,
+ \qquad 0\le d(T)<\frac12.
+\end{equation}
+The excess $d(T)$ vanishes precisely when $T$ is equilateral and is comparable to the maximal relative deviation of the side lengths from their mean; it thus serves as a natural distance to the equilateral shape among triangles of fixed perimeter.
+We write
+\begin{equation}\label{eq:deficit}
+ \varepsilon(T):=1-\frac{P(T)\sigma_1(T)}{3\sigma_*}
+\end{equation}
+for the normalized spectral deficit.
+\begin{theorem}\label{thm:stability}
+There exist constants $c,C>0$, independent of $T$, such that
+\begin{equation}\label{eq:stability}
+ c\,d(T)\le
+ 1-\frac{P(T)\sigma_1(T)}{3\sigma_*}
+ \le C\,d(T)
+\end{equation}
+for every nondegenerate triangle $T$.
+\end{theorem}
+Our proof furnishes an explicit constant $c$ in
+\eqref{eq:stability-constant} and allows $C=12$, showing that the normalized Steklov deficit is globally comparable to $d(T)$ at linear order.
+
+For the Neumann Laplacian, the analogous optimization problem is classical: the Szeg\H{o}--Weinberger inequality identifies the ball as the maximizer of the first positive Neumann eigenvalue at fixed volume \cite{Szego,Weinberger}, while Laugesen and Siudeja \cite{LS2009} proved that the equilateral triangle maximizes the fundamental Neumann tone among triangles of given perimeter, developing symmetry and transplantation methods of wide applicability \cite{LS2011}. For Steklov eigenvalues, foundational bounds of Hersch, Payne, and Schiffer \cite{HPS} and Brock \cite{Brock} have been followed by higher-dimensional shape optimization \cite{FS2019} and deep links to conformal geometry and free-boundary minimal surfaces \cite{FS2011,FS2016}. Further stability and spectral continuity results appear in \cite{BDR,FL}, whereas the spectral asymptotics of polygons reveal the subtle influence of corners \cite{LPPS}. Triangles provide the primary setting in which the polygonal Steklov problem can be posed across a full moduli space of shapes, and their affine transitivity permits a direct variational comparison with $E$.
+
+To bound $\sigma_1(T)$ from above via \eqref{eq:variational}, it suffices to exhibit a single mean-zero trial function on $T$ with a small Rayleigh quotient. Because every triangle $T$ is an affine image of $E$, pulling back a first eigenfunction of $E$ provides a natural candidate. Under an affine map, however, the three edges of $E$ scale by different factors---shifting the boundary average and altering the boundary $L^2$ norm---while the interior gradient is sheared anisotropically. We overcome both difficulties simultaneously by choosing a distinguished first eigenfunction of $E$ whose boundary mass and directional energy are asymmetrically distributed in our favor.
+
+Specifically, fix a reference edge $\Gamma_0$ of $E$ and take the real first eigenfunction $u$ that is odd across the altitude bisecting $\Gamma_0$. This mode carries strictly more $L^2$ mass on $\Gamma_0$ than on either of the other two edges, while its Dirichlet energy normal to $\Gamma_0$ is small. Mapping $\Gamma_0$ affinely onto a longest side of $T$ amplifies the boundary integral on $\Gamma_0$ enough to dominate the variance loss from subtracting the boundary mean, while keeping the affine distortion of the Dirichlet energy small. Normalizing $P(T)=3$, we write the side lengths of $T$ as
+\[
+ \ell_0=1+d,\qquad \ell_1=1-\frac d2+\delta,\qquad
+ \ell_2=1-\frac d2-\delta,\qquad 0\le\delta\le\frac32d,
+\]
+where $\ell_0$ is a longest side and $d=d(T)$. Testing \eqref{eq:variational} with a linear coordinate function first restricts attention to the regime $d<1/6$ whenever $\sigma_1(T)\ge\sigma_*$ (\cref{lem:coordinate}). In this range, the exact edge moments of $u$, parameterized by $r\in(0,1/6)$, give for the centered affine transplant $v$ the exact boundary variance
+\[
+ \int_{\partial T}v^2\,\dd s
+ =1+\frac32rd-8r^2\delta^2\ge1+rd.
+\]
+Meanwhile, combining the transverse energy bound $\int_E(\partial_Xu)^2\,\dd A<\sigma_*/6$ (\cref{prop:transverse}) with Heron's formula yields $\int_T|\nabla v|^2\,\dd A\le\sigma_*$. Thus $\sigma_1(T)\le\sigma_*/(1+rd)$ (\cref{prop:transplant}), with strict inequality relative to $\sigma_*$ whenever $d>0$. Together with the coordinate test, this proves \Cref{thm:main}, and the quantitative estimates yield \Cref{thm:stability}.
+
+The required properties of $u$ are extracted from the exact Steklov spectrum of $E$. Following McCartin's trigonometric-exponential ansatz for the Robin problem \cite{McC}, we construct a complex harmonic mode on $E$ satisfying the Steklov condition on all three edges. Its real and imaginary parts are linearly independent, and a comparison with the Neumann spectrum separates their eigenvalue from $\sigma_3(E)$, identifying them as a basis for the first Steklov eigenspace. Along a single edge, the boundary trace of this mode satisfies a third-order ordinary differential equation. Pairing that differential equation with Rellich identities yields closed-form expressions for the edge moments and directional energy integrals, providing the exact analytical inputs needed to close the affine comparison.
+
+The paper is organized as follows. Section~\ref{sec:preliminaries} reviews the variational framework, records the boundary variance formulation, and proves the spectral separation bound for $\sigma_3(E)$. Section~\ref{sec:exact} constructs the explicit first Steklov mode on $E$ and bounds $\sigma_*$. In Section~\ref{sec:moments}, we use the third-order boundary equation and Rellich identities to compute the edge moments and prove the transverse energy bound. Section~\ref{sec:comparison} establishes the longest-side localization and the affine transplantation estimates, and Section~\ref{sec:proofs} completes the proofs of Theorems~\ref{thm:main} and~\ref{thm:stability}.
+
+%======================================================================
+\section{Preliminaries}\label{sec:preliminaries}
+%======================================================================
+\subsection{Conventions and notation}
+Henceforth, integrals over a planar domain are taken with respect to
+area and integrals over its boundary with respect to arclength; these
+measures will be omitted from the notation. For a bounded Lipschitz domain
+$\Omega\subset\R^2$ and a function $f\in H^1(\Omega)$, we define the
+\emph{boundary variance} and the corresponding \emph{Rayleigh quotient} by
+\begin{equation}\label{eq:variance}
+ \Var_{\partial\Omega}(f):=\min_{a\in\R}\int_{\partial\Omega}(f-a)^2
+ =\int_{\partial\Omega}f^2-\frac1{P(\Omega)}
+   \Bigl(\int_{\partial\Omega}f\Bigr)^2,
+ \qquad
+ \Ray_\Omega(f):=\frac{\int_\Omega|\nabla f|^2}{\Var_{\partial\Omega}(f)}.
+\end{equation}
+For a complex-valued function $Q$, we distinguish between the Hermitian square
+$|\nabla Q|^2=|\partial_XQ|^2+|\partial_YQ|^2$ and the complex bilinear square
+$\nabla Q\cdot\nabla Q=(\partial_XQ)^2+(\partial_YQ)^2$.
+
+\smallskip\noindent\emph{The reference triangle.}
+We identify $\R^2$ with $\C$ via $z=X+\ii Y$ and set
+\[
+ \om=\ee^{2\pi\ii/3},\qquad h=\frac1{2\sqrt3},\qquad
+ p_0=-\frac1{\sqrt3},\qquad p_1=\om p_0=h-\frac\ii2,\qquad
+ p_2=\om^2p_0=h+\frac\ii2 .
+\]
+Let $E$ be the open equilateral triangle with vertices $p_0,p_1,p_2$; it has
+unit side length, centroid $0$, and inradius $h$. Its three edges are given by
+\[
+ \Gamma_0=[p_1,p_2]=\{h+\ii t:\ |t|\le\tfrac12\},\qquad
+ \Gamma_j=\om^j\Gamma_0\quad(j=1,2),
+\]
+so that $\Gamma_1=[p_2,p_0]$ and $\Gamma_2=[p_0,p_1]$. We parametrize each edge
+$\Gamma_j$ by $t\mapsto\om^j(h+\ii t)$ for $|t|\le\frac12$; its outward unit
+normal and unit tangent vectors are $\nu_j=\om^j$ and $\tau_j=\ii\om^j$,
+respectively. The triangle $E$ is invariant under the rotation $z\mapsto\om z$
+and the reflection $z\mapsto\overline z$; the latter fixes $\Gamma_0$ and
+interchanges $\Gamma_1$ and $\Gamma_2$.
+
+\subsection{Variational facts}
+Because the trace map $H^1(\Omega)\to L^2(\partial\Omega)$ is compact
+\cite[Chapter~3]{McLean}, the Steklov spectrum of $\Omega$ is discrete,
+$0=\sigma_0<\sigma_1\le\sigma_2\le\cdots\to\infty$, and there exists a complete
+family of eigenfunctions $w_k$, orthonormal in $L^2(\partial\Omega)$, that are
+harmonic in $\Omega$, satisfy $\partial_\nu w_k=\sigma_kw_k$ weakly on
+$\partial\Omega$, and are mutually orthogonal with respect to the Dirichlet
+energy; see \cite{GP,CGGS}. We record two immediate variational consequences:
+\begin{gather}
+ \sigma_1(\Omega)=\inf\bigl\{\Ray_\Omega(f):\ f\in H^1(\Omega),\
+   \Var_{\partial\Omega}(f)>0\bigr\},\label{eq:variance-principle}\\
+ \int_\Omega|\nabla f|^2\le\sigma_k\int_{\partial\Omega}f^2
+ \qquad\bigl(f\in\operatorname{span}\{w_0,\dots,w_k\}\bigr).
+ \label{eq:span-bound}
+\end{gather}
+Here \eqref{eq:variance-principle} is simply \eqref{eq:variational} with the
+zero-mean constraint absorbed into the boundary variance $\Var_{\partial\Omega}$.
+Conversely, any nonzero function $w$ that is harmonic in $\Omega$, belongs to
+$C^2$ in a neighborhood of $\overline\Omega$, and satisfies
+$\partial_\nu w=\sigma w$ on $\partial\Omega$ with $\sigma>0$ is a Steklov
+eigenfunction with eigenvalue $\sigma$ and has zero boundary mean.
+
+\subsection{Separation of the first spectral cluster}
+\begin{lemma}\label{lem:spectral-separation}
+For the unit-side equilateral triangle $E$, one has
+\begin{equation}\label{eq:third-steklov-gap}
+ \sigma_3(E)\ge\frac{4\pi^2}{\sqrt3(4\pi+3)}>\frac{4\pi}{9}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+\emph{Step 1 (Neumann gap).} By \cite{McCNeumann}, the Neumann eigenvalues
+of $E$ are given by $\frac{16\pi^2}{9}(j^2+jk+k^2)$ for integers $j,k\ge0$, so that
+$\mu_0=0$, $\mu_1=\mu_2=\frac{16\pi^2}{9}$, and $\mu_3=\frac{16\pi^2}{3}$.
+If $\mathcal N$ denotes the three-dimensional span of the Neumann
+eigenfunctions corresponding to $\mu_0,\mu_1,\mu_2$, then every $f\in H^1(E)$
+with $f\perp_{L^2(E)}\mathcal N$ satisfies
+$\Vert{}f\Vert{}_{L^2(E)}^2\le\mu_3^{-1}\Vert{}\nabla f\Vert{}_{L^2(E)}^2$.
+
+\emph{Step 2 (trace inequality).} Since $\mathbf x\cdot\nu=h$ on
+$\partial E$ and $\vert{}\mathbf x\vert{}\le1/\sqrt3$ on $E$, applying the divergence theorem
+to the vector field $f^2\mathbf x$ gives
+$h\int_{\partial E}f^2=2\int_Ef^2+2\int_Ef\,\mathbf x\cdot\nabla f \le2\Vert{}f\Vert{}_{L^2(E)}^2+\frac2{\sqrt3}\Vert{}f\Vert{}_{L^2(E)}\,\Vert{}\nabla f\Vert{}_{L^2(E)}$. Combining
+this bound with Step~1 yields
+\[\int_{\partial E}f^2\le c_E\int_E\vert{}\nabla f\vert{}^2,\qquad c_E:=\frac{\sqrt3(4\pi+3)}{4\pi^2}\qquad(f\perp_{L^2(E)}\mathcal N).\]
+
+\emph{Step 3 (dimension count).} Because $\operatorname{span}\{w_0,\dots,w_3\}$
+is four-dimensional, it contains a nonzero function $f\perp_{L^2(E)}\mathcal N$.
+Its boundary trace is necessarily nonzero, and combining \eqref{eq:span-bound}
+with Step~2 gives $\int_{\partial E}f^2\le c_E\sigma_3(E)\int_{\partial E}f^2$.
+Consequently, $\sigma_3(E)\ge c_E^{-1}$, and the strict inequality
+$c_E^{-1}>4\pi/9$ is equivalent to $9\pi>\sqrt3(4\pi+3)$.
+\end{proof}
+
+%======================================================================
+\section{The first eigenspace of the equilateral triangle}\label{sec:exact}
+%======================================================================
+\subsection{Parameters}
+For $0<t<1$, we define the auxiliary functions
+\begin{equation}\label{eq:theta-K}
+ \theta(t)=\arctan\frac{\sqrt3\,t}{1-t^2}\in\Bigl(0,\frac\pi2\Bigr),
+ \qquad
+ K(t)=2\artanh t-\frac23\artanh(t^3).
+\end{equation}
+
+\begin{lemma}\label{lem:root}
+The transcendental equation $\theta(t)+\frac{\sqrt3}{2}K(t)=\frac{2\pi}{3}$ has a
+unique solution $\beta\in(0,1)$, which satisfies $\frac12<\beta<\frac23$.
+\end{lemma}
+\begin{proof}
+Direct differentiation gives $\theta'(t)=\sqrt3(1+t^2)/(1+t^2+t^4)>0$ and
+$K'(t)=2(1+t^4)/(1-t^6)>2$, so the left-hand side increases strictly from
+$0$ to $\infty$, establishing existence and uniqueness. To bracket the root,
+observe that $\tan\theta(\frac12)=\frac2{\sqrt3}<\sqrt3 <\frac{18}{5\sqrt3}=\tan\theta(\frac23)$, which implies
+$\theta(\frac12)<\frac\pi3<\theta(\frac23)$. Meanwhile, the elementary inequalities
+$\artanh s<s/\sqrt{1-s^2}$ for $0<s<1$ and $3<\pi<2\sqrt3$ give
+$K(\frac12)<\frac2{\sqrt3}<\frac{2\pi}{3\sqrt3}<\frac43<K(\frac23)$. The
+left-hand side therefore lies below $\frac{2\pi}{3}$ at $t=\frac12$ and above it
+at $t=\frac23$.
+\end{proof}
+
+With $\beta$ given by \cref{lem:root}, we set
+\begin{equation}\label{eq:parameters}
+ \alpha=K(\beta),\qquad \rho=\sqrt3\,\alpha,\qquad
+ \widehat\sigma=\rho\beta,\qquad
+ \kappa=\ee^{\alpha}\frac{1-\beta}{1+\beta}
+       =\Bigl(\frac{1-\beta^3}{1+\beta^3}\Bigr)^{1/3}.
+\end{equation}
+The defining equation for $\beta$ then takes the form
+\begin{equation}\label{eq:alpha}
+ \frac{\sqrt3}{2}\alpha=\frac{2\pi}{3}-\theta(\beta),
+ \qquad\text{or equivalently}\qquad
+ \widehat\sigma=2\beta\Bigl(\frac{2\pi}3-\theta(\beta)\Bigr).
+\end{equation}
+
+\subsection{The exponential mode}
+Following \cite{McC}, we define the complex-valued harmonic function
+\begin{equation}\label{eq:Q}
+ Q(z)=\sum_{j=0}^2\om^j\ee^{\rho\om^jz}
+       +\kappa\sum_{j=0}^2\om^{-j}\ee^{-\rho\om^j\overline z}.
+\end{equation}
+
+\begin{lemma}\label{lem:mode}
+The function $Q$ is a nonzero, real-analytic harmonic function on $\R^2$ satisfying
+\begin{equation}\label{eq:Q-symmetry}
+ Q(\om z)=\om^2Q(z),\qquad Q(\overline z)=\overline{Q(z)},
+\end{equation}
+and $\partial_\nu Q=\widehat\sigma Q$ on every edge of $E$.
+\end{lemma}
+\begin{proof}
+Harmonicity and the symmetries \eqref{eq:Q-symmetry} are immediate from
+\eqref{eq:Q}, and $Q\not\equiv0$ because the six exponential terms have distinct
+linear exponents. By rotational symmetry, it suffices to verify the boundary
+condition on $\Gamma_0$, where $\partial_\nu=\partial_X$. Since $\rho h=\alpha/2$,
+along the line $z=h+\ii t$ both $Q$ and $\partial_XQ$ are linear combinations of
+the three distinct exponentials $\ee^{\ii\rho\om^jt}$. Matching their coefficients
+shows that $\partial_XQ=\rho\beta Q$ on $\Gamma_0$ if and only if
+\begin{equation}\label{eq:compatibility}
+ \kappa=\om^{-j}\ee^{\alpha\om^j}\frac{\om^j-\beta}{\om^j+\beta},
+ \qquad j=0,1,2.
+\end{equation}
+For $j=0$, this relation is the definition of $\kappa$ in \eqref{eq:parameters},
+and the case $j=2$ follows from $j=1$ by complex conjugation. For $j=1$, we write
+$\frac{\om-\beta}{\om+\beta}=\frac{1-\beta^2+\ii\sqrt3\beta}{\beta^2-\beta+1}$,
+whose argument is $\theta(\beta)$ and whose modulus is
+$\bigl(\frac{\beta^2+\beta+1}{\beta^2-\beta+1}\bigr)^{1/2}$. The argument
+of the right-hand side of \eqref{eq:compatibility} is thus
+$-\frac{2\pi}3+\frac{\sqrt3}2\alpha+\theta(\beta)=0$ by \eqref{eq:alpha},
+while equality of moduli is equivalent to $\alpha=K(\beta)$ via the factorization
+$1\pm\beta^3=(1\pm\beta)(1\mp\beta+\beta^2)$.
+\end{proof}
+
+\subsection{Identification}
+\begin{proposition}\label{prop:identification}
+The first nonzero Steklov eigenvalue of $E$ is given by
+\[
+ \sigma_*=\sigma_1(E)=\sigma_2(E)=\widehat\sigma=\sqrt3\,\alpha\beta<\frac{4\pi}{9},
+\]
+and the real first eigenspace $\mathcal E_1$ of $E$ is spanned by
+$\Rea Q|_E$ and $\Ima Q|_E$.
+\end{proposition}
+\begin{proof}
+A direct computation yields
+$\theta''(t)=-2\sqrt3\,t^3(t^2+2)/(1+t^2+t^4)^2<0$, together with the limiting
+values $\theta(0^+)=0$ and $\theta(1^-)=\frac\pi2$. Strict concavity therefore
+gives $\theta(t)>\frac\pi2t$ on $(0,1)$, and \eqref{eq:alpha} implies
+\[\widehat\sigma<\pi\Bigl[\frac49-\Bigl(\beta-\frac23\Bigr)^2\Bigr] \le\frac{4\pi}9<\sigma_3(E),\]
+where the last inequality follows from \cref{lem:spectral-separation}. By
+\cref{lem:mode}, $\Rea Q$ and $\Ima Q$ are Steklov eigenfunctions on $E$ with
+eigenvalue $\widehat\sigma>0$. They are linearly independent over $\R$: otherwise
+$Q(E)$ would lie in a real line through the origin, which by $Q(\om z)=\om^2Q(z)$
+and $Q\not\equiv0$ would have to be invariant under rotation by $4\pi/3$. Thus
+$\widehat\sigma$ has multiplicity at least two and lies strictly between
+$\sigma_0(E)=0$ and $\sigma_3(E)$, so it must equal $\sigma_1(E)=\sigma_2(E)$
+and have multiplicity exactly two.
+\end{proof}
+
+\subsection{Corner relations}
+\begin{lemma}\label{lem:corner}
+Let $w$ be harmonic and $C^2$ in a neighborhood of $\overline E$ with
+$\partial_\nu w=\sigma w$ on $\partial E$, and set
+$\varphi(t)=w(h+\ii t)$ for $|t|\le\frac12$. Then
+\begin{equation}\label{eq:corner}
+ \varphi'(\pm\tfrac12)=\pm\sqrt3\,\sigma\,\varphi(\pm\tfrac12),\qquad
+ \varphi''(\pm\tfrac12)=\sigma^2\varphi(\pm\tfrac12).
+\end{equation}
+\end{lemma}
+\begin{proof}
+At the upper vertex $p_2$, the outward unit normals to $\Gamma_0$ and $\Gamma_1$
+are $(1,0)$ and $(-\frac12,\frac{\sqrt3}2)$, so the two Steklov conditions give
+$\partial_Xw=\sigma w$ and $\partial_Yw=\sqrt3\sigma w$. Differentiating the first
+relation tangentially along $\Gamma_0$ and the second along $\Gamma_1$, and using
+harmonicity $\partial_Y^2w=-\partial_X^2w$, we obtain
+$\partial_X\partial_Yw=\sqrt3\sigma^2w$ and $\partial_Y^2w=\sigma^2w$ at $p_2$.
+The relations at the lower vertex $p_1$ follow by applying this result to
+$w(\overline z)$.
+\end{proof}
+
+\subsection{Numerical bounds for \texorpdfstring{$\sigma_*$}{sigma*}}
+\begin{lemma}\label{lem:sigma-bounds}
+The equilateral Steklov eigenvalue satisfies $\sqrt{3/2}<\sigma_*<3\sqrt3/4$.
+\end{lemma}
+\begin{proof}
+\emph{Lower bound.} Put $S(t)=2t(\frac{2\pi}3-\theta(t))$, so that
+$\sigma_*=S(\beta)$ by \eqref{eq:alpha}. Since
+$S''(t)=-4\sqrt3(2t^2+1)(t^2-t+1)^{-2}(t^2+t+1)^{-2}<0$ and
+$\beta\in(\frac12,\frac23)$, concavity gives
+$\sigma_*>\min\{S(\frac12),S(\frac23)\}$, where
+\[S(\tfrac12)=\frac\pi6+\arctan\frac{\sqrt3}2,\qquad S(\tfrac23)=\frac{2\pi}9+\frac43\arctan\frac5{6\sqrt3}.\]
+The elementary inequalities $\arctan s>\frac{s(6+s^2)}{3(2+s^2)}$ for
+$0<s<\sqrt2$ and $\arctan s>s-\frac{s^3}3$ for $s>0$ yield
+$\arctan\frac{\sqrt3}2>\frac{9\sqrt3}{22}>\frac1{\sqrt2}$ and
+$\frac43\arctan\frac5{6\sqrt3}>\frac{\sqrt3}3$. Combining these estimates with
+$\frac\pi6>\frac{\sqrt6-\sqrt2}2$ and $\pi>3$ gives
+$S(\frac12)>\sqrt{3/2}$ and $S(\frac23)>\frac{2+\sqrt3}3>\sqrt{3/2}$.
+
+\emph{Upper bound.} The polynomial trial function $\phi(X,Y)=Y(2+3\sqrt3X)$ is
+odd in $Y$, hence has zero boundary mean on $\partial E$. Direct integration over
+$E$ and its edges gives $\int_E\vert{}\nabla\phi\vert{}^2=\frac{25\sqrt3}{16}$ and
+$\int_{\partial E}\phi^2=\frac{167}{80}$. Thus
+$\sigma_*\le\frac{125\sqrt3}{167}<\frac{3\sqrt3}4$ by the variational characterization
+\eqref{eq:variance-principle}.
+\end{proof}
+
+%======================================================================
+\section{Edge moments and the transverse energy}\label{sec:moments}
+%======================================================================
+\subsection{The edge equation}
+We now analyze the boundary trace of $Q$ along the reference edge $\Gamma_0$. Set
+\[
+ f(t)=Q(h+\ii t)\quad(|t|\le\tfrac12),\qquad m=Q(p_0),\qquad
+ r=\frac{\beta^2}{2\alpha}.
+\]
+Then $m\in\R$ by the reflection symmetry in \eqref{eq:Q-symmetry}. Along $\Gamma_0$,
+$f(t)$ is a linear combination of the three exponentials $\ee^{\ii\rho\om^jt}$
+(as seen in the proof of \cref{lem:mode}), and since $(\ii\rho\om^j)^3=-\ii\rho^3$
+for each $j$, the trace $f$ satisfies the third-order differential equation and
+conjugation symmetry
+\begin{equation}\label{eq:edge-ode}
+ f'''=-\ii\rho^3f,\qquad f(-t)=\overline{f(t)}.
+\end{equation}
+Because $p_2=\om^2p_0$ and $p_1=\om p_0$, combining \eqref{eq:Q-symmetry} with
+\cref{lem:corner} (for $\sigma=\sigma_*$) yields the endpoint relations
+\begin{equation}\label{eq:endpoints}
+ f(\tfrac12)=\om m,\quad f(-\tfrac12)=\om^2m,\quad
+ f'(\pm\tfrac12)=\pm\sqrt3\sigma_*f(\pm\tfrac12),\quad
+ f''(\pm\tfrac12)=\sigma_*^2f(\pm\tfrac12).
+\end{equation}
+From $\sigma_*=\rho\beta$ and $\rho=\sqrt3\alpha$, we also record the identity
+\begin{equation}\label{eq:2r}
+ \frac{\sqrt3\,\sigma_*^2}{\rho^3}=\frac{\beta^2}{\alpha}=2r.
+\end{equation}
+Direct differentiation using \eqref{eq:edge-ode} furnishes the two exact
+derivative identities
+\begin{equation}\label{eq:first-integrals}
+ \bigl(2\Rea(f''\overline f)-|f'|^2\bigr)'=0,\qquad
+ \Bigl(ff''-\tfrac12(f')^2\Bigr)'=-\ii\rho^3f^2.
+\end{equation}
+Finally, we set $I_0=\int_{-1/2}^{1/2}|f|^2\dd t$ and
+$I_1=\int_{-1/2}^{1/2}|f'|^2\dd t$.
+
+\subsection{Rellich identities}
+We recall the classical multiplier identity of Rellich \cite{Rellich} and
+Poho\v{z}aev \cite{Pohozaev} (see also \cite{LP}): if $Q$ is harmonic and
+$C^2$ in a neighborhood of $\overline E$ and $W$ is a real $C^1$ vector field on
+$\overline E$, then
+\begin{equation}\label{eq:rellich}
+ \int_E\Bigl[\nabla Q\cdot(DW)\nabla Q
+   -\frac{\operatorname{div}W}{2}\nabla Q\cdot\nabla Q\Bigr]
+ =\int_{\partial E}\Bigl[(W\cdot\nabla Q)\,\partial_\nu Q
+   -\frac{W\cdot\nu}{2}\nabla Q\cdot\nabla Q\Bigr],
+\end{equation}
+where all products are understood in the complex bilinear sense. Applying
+\eqref{eq:rellich} separately to $\Rea Q$ and $\Ima Q$ and summing the results
+gives the Hermitian counterpart, in which $\nabla Q\cdot\nabla Q$ is replaced by
+$|\nabla Q|^2$ and $(W\cdot\nabla Q)\partial_\nu Q$ is replaced by
+$\Rea\bigl((W\cdot\nabla Q)\,\partial_\nu\overline Q\bigr)$.
+
+\subsection{Normalization}
+\begin{lemma}\label{lem:mass}
+The vertex value $m=Q(p_0)$ and the boundary norm satisfy
+$m^2=3I_0=\int_{\partial E}|Q|^2>0$.
+\end{lemma}
+\begin{proof}
+We evaluate the tangential Dirichlet integral $I_1$ in two ways; throughout the
+proof, we write $\sigma=\sigma_*$.
+
+\emph{(a) From the edge equation.} By the first identity in
+\eqref{eq:first-integrals} and the corner values \eqref{eq:endpoints}, we have
+$2\Rea(f''\overline f)-\vert{}f'\vert{}^2\equiv-\sigma^2m^2$ on $[-\frac12,\frac12]$.
+Integrating this relation over $[-\frac12,\frac12]$, integrating by parts once,
+and using $2\Rea[f'\overline f]_{-1/2}^{1/2}=4\sqrt3\sigma m^2$ gives
+$3I_1=(\sigma^2+4\sqrt3\sigma)m^2$.
+
+\emph{(b) From the radial Rellich identity.} Taking $W(\mathbf x)=\mathbf x$
+in the Hermitian version of \eqref{eq:rellich} makes the interior integral vanish
+in dimension two. By rotational symmetry, the three edges of $E$ contribute
+equally to the boundary integral, and along $\Gamma_0$ we have $W\cdot\nu=h$,
+$W\cdot\tau=t$, $\partial_\nu Q=\sigma f$, and $\partial_\tau Q=f'$. Hence
+\[0=\frac h2(\sigma^2I_0-I_1)+\sigma\int_{-1/2}^{1/2}t\Rea(f\overline{f'})\dd t =\frac h2(\sigma^2I_0-I_1)+\frac\sigma2(m^2-I_0),\]
+which rearranges to $I_1=(\sigma^2-2\sqrt3\sigma)I_0+2\sqrt3\sigma m^2$.
+
+Eliminating $I_1$ between the two expressions yields
+$(\sigma^2-2\sqrt3\sigma)(m^2-3I_0)=0$. Since $0<\sigma<2\sqrt3$ by
+\cref{prop:identification}, we conclude that $m^2=3I_0$. Finally,
+$\int_{\partial E}\vert{}Q\vert{}^2=3I_0$ by rotational symmetry, and $I_0>0$
+because a harmonic function with vanishing boundary trace must be identically
+zero, whereas $Q\vert{}_E\not\equiv0$.
+\end{proof}
+
+In view of \cref{lem:mass}, we may normalize $Q$ by setting
+\begin{equation}\label{eq:u-psi}
+ q=\frac Qm,\qquad u=-\sqrt2\,\Ima q,\qquad \psi=\sqrt2\,\Rea q,
+ \qquad\text{so that } q=\frac{\psi-\ii u}{\sqrt2}.
+\end{equation}
+
+\subsection{Edge moments}
+\begin{proposition}\label{prop:edge-moments}
+The normalized eigenfunctions satisfy the following properties:
+\begin{enumerate}
+\item[(i)] The pair $u,\psi$ forms an $L^2(\partial E)$-orthonormal basis of
+$\mathcal E_1$, with $u$ odd and $\psi$ even in $Y$.
+\item[(ii)] For each $j=0,1,2$, the complex mode $q$ has edge integrals
+\begin{equation}\label{eq:q-moments}
+ \int_{\Gamma_j}q=-2r\om^{2j},\qquad
+ \int_{\Gamma_j}q^2=-r\om^{j},\qquad
+ \int_{\Gamma_j}|q|^2=\frac13 .
+\end{equation}
+\item[(iii)] The parameter $r$ satisfies $0<r<\frac16$, and the edge moments of
+$u$ are given by
+\begin{equation}\label{eq:u-moments}
+ \begin{gathered}
+ \int_{\Gamma_0}u=0,\qquad \int_{\Gamma_1}u=-\int_{\Gamma_2}u=-\sqrt6\,r,\\
+ \int_{\Gamma_0}u^2=\frac13+r,\qquad
+ \int_{\Gamma_1}u^2=\int_{\Gamma_2}u^2=\frac13-\frac r2 .
+ \end{gathered}
+\end{equation}
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(ii) For $j=0$, integrating \eqref{eq:edge-ode} and the second identity in
+\eqref{eq:first-integrals} over $[-\frac12,\frac12]$ and substituting
+\eqref{eq:endpoints} and \eqref{eq:2r} gives
+\[
+ \int_{-1/2}^{1/2}f\dd t=\frac{\ii}{\rho^3}\bigl[f''\bigr]_{-1/2}^{1/2}=-2rm,
+ \qquad
+ \int_{-1/2}^{1/2}f^2\dd t
+ =\frac{\ii}{\rho^3}\Bigl[-\frac{\sigma_*^2}2f^2\Bigr]_{-1/2}^{1/2}=-rm^2,
+\]
+while $\int_{-1/2}^{1/2}|f|^2\dd t=I_0=m^2/3$ by \cref{lem:mass}. Dividing by $m$
+and $m^2$ settles the case $j=0$, and the formulas for $j=1,2$ follow from the
+rotational equivariance $q(\om^jz)=\om^{2j}q(z)$.
+
+(i) Summing \eqref{eq:q-moments} over $j=0,1,2$ gives $\int_{\partial E}|q|^2=1$
+and $\int_{\partial E}q^2=0$. Since $\psi^2=|q|^2+\Rea(q^2)$,
+$u^2=|q|^2-\Rea(q^2)$, and $\psi u=-\Ima(q^2)$, the real modes $u$ and $\psi$ are
+orthonormal in $L^2(\partial E)$, and by \cref{prop:identification} they span
+$\mathcal E_1$. Their parities in $Y$ follow from $Q(\overline z)=\overline{Q(z)}$
+and the fact that $m\in\R$.
+
+(iii) Since $K(0)=0$ and $K'>2$ on $(0,1)$ (as shown in the proof of
+\cref{lem:root}), we have $\alpha=K(\beta)>2\beta$, which implies
+$0<r=\frac{\beta^2}{2\alpha}<\frac\beta4<\frac16$. The edge moments
+\eqref{eq:u-moments} then follow directly from \eqref{eq:q-moments} via
+$\int_{\Gamma_j}u=-\sqrt2\Ima\int_{\Gamma_j}q$ and
+$\int_{\Gamma_j}u^2=\int_{\Gamma_j}\bigl(|q|^2-\Rea(q^2)\bigr)$.
+\end{proof}
+
+\subsection{A weighted edge moment}
+Set $g=\sigma_*f+\ii f'$ on $[-\frac12,\frac12]$. By \eqref{eq:edge-ode}, the
+function $g$ also obeys
+\begin{equation}\label{eq:g}
+ g'''=-\ii\rho^3g,\qquad g(-t)=\overline{g(t)}.
+\end{equation}
+
+\begin{lemma}\label{lem:weighted}
+Along $\Gamma_0$, the auxiliary function $g=\sigma_*f+\ii f'$ satisfies
+\[
+ \int_{-1/2}^{1/2}(h+\ii t)\,g(t)^2\dd t
+ =m^2\Bigl[\frac2{\sqrt3}+\frac{3\sqrt3}4\Bigl(\beta^3-\frac13\Bigr)^2\Bigr].
+\]
+\end{lemma}
+\begin{proof}
+By \eqref{eq:g}, one has the exact derivatives
+$\bigl(gg''-\frac12(g')^2\bigr)'=-\ii\rho^3g^2$ and
+$\bigl(-\frac12gg'+\frac{3\ii}{4\rho^3}(g'')^2\bigr)'=gg''-\frac12(g')^2$.
+Two integrations by parts therefore yield
+\[
+ \int_{-1/2}^{1/2}(h+\ii t)g^2\dd t=\bigl[B\bigr]_{-1/2}^{1/2},\qquad
+ B=\frac{\ii}{\rho^3}(h+\ii t)\Bigl(gg''-\frac12(g')^2\Bigr)
+   -\frac{gg'}{2\rho^3}+\frac{3\ii(g'')^2}{4\rho^6}.
+\]
+The conjugation symmetry $g(-t)=\overline{g(t)}$ implies
+$B(-t)=-\overline{B(t)}$, so the boundary difference $\bigl[B\bigr]_{-1/2}^{1/2}$
+equals $2\Rea B(\frac12)$. Writing $f_+=f(\frac12)$, we deduce from
+\eqref{eq:endpoints} and \eqref{eq:edge-ode} that at $t=\frac12$,
+\[
+ gg''-\tfrac12(g')^2=\rho^4\beta(1+\ii\sqrt3)f_+^2,\qquad
+ gg'=4\ii\rho^3\beta^3f_+^2,\qquad
+ (g'')^2=\rho^6(1+\beta^3)^2f_+^2 .
+\]
+Since $f_+^2=\om^2m^2$ and $(h+\frac\ii2)(1+\ii\sqrt3)\om^2=\frac2{\sqrt3}$,
+the first term in $B(\frac12)$ is purely imaginary, leaving
+\[
+ \frac{2\Rea B(\frac12)}{m^2}
+ =2\Rea\Bigl[\ii\om^2\Bigl(-2\beta^3+\frac34(1+\beta^3)^2\Bigr)\Bigr]
+ =\sqrt3\Bigl[\frac34(1+\beta^3)^2-2\beta^3\Bigr].
+\]
+Completing the square gives the stated formula.
+\end{proof}
+
+\subsection{The transverse energy}
+For a complex-valued function $w\in H^1(E)$, we define the directional energy
+difference $\An(w)=\int_E\bigl((\partial_Xw)^2-(\partial_Yw)^2\bigr)$.
+
+\begin{proposition}\label{prop:transverse}
+The odd eigenfunction $u$ defined in \eqref{eq:u-psi} satisfies
+$\int_E\partial_Xu\,\partial_Yu=0$ and
+\begin{equation}\label{eq:transverse}
+ \int_E(\partial_Xu)^2
+ =\frac{\sigma_*}2-\frac{\sqrt3}4-\frac{9\sqrt3}{32}
+   \Bigl(\beta^3-\frac13\Bigr)^2<\frac{\sigma_*}6 .
+\end{equation}
+\end{proposition}
+\begin{proof}
+\emph{Step 1 (anisotropic Rellich identity).} We apply the complex bilinear
+Rellich identity \eqref{eq:rellich} to $Q$ with the vector field
+$W(X,Y)=(X,-Y)$, for which $DW=\operatorname{diag}(1,-1)$ and
+$\operatorname{div}W=0$; the left-hand side of \eqref{eq:rellich} is then
+precisely $\An(Q)$. Along $\Gamma_j$ at the point $\om^j(h+\ii t)$, the normal
+and tangential components $a_j=W\cdot\nu_j$ and $b_j=W\cdot\tau_j$ satisfy
+$a_j+\ii b_j=\om^j(h-\ii t)$, while $\partial_\nu Q=\om^{2j}\sigma_*f$ and
+$\partial_\tau Q=\om^{2j}f'$. The boundary integrand on $\Gamma_j$ is therefore
+$\om^j\bigl[\frac{a_j}2(\sigma_*^2f^2-(f')^2)+b_j\sigma_*ff'\bigr]$, and the
+identities $\sum_{j=0}^2\om^ja_j=\frac32(h+\ii t)$ and
+$\sum_{j=0}^2\om^jb_j=\frac{3\ii}2(h+\ii t)$ yield
+\[
+ \An(Q)=\frac34\int_{-1/2}^{1/2}(h+\ii t)\,g^2\dd t,
+ \qquad\text{whence}\qquad
+ \An(q)=\frac{\sqrt3}2+\frac{9\sqrt3}{16}\Bigl(\beta^3-\frac13\Bigr)^2
+\]
+by \cref{lem:weighted}.
+
+\emph{Step 2 (reduction to $u$).} Let $R$ denote the counterclockwise rotation by
+$2\pi/3$. From $q\circ R=\om^2q$, the chain rule gives $\nabla q\circ R=\om^2R\nabla q$,
+so the real symmetric $2\times2$ matrix $\Rea\int_E\nabla q\,\overline{\nabla q}^{\,T}$
+commutes with $R$ and is therefore a scalar multiple of the identity; in particular,
+$\int_E|\partial_Xq|^2=\int_E|\partial_Yq|^2$, or equivalently
+$\int_E\bigl((\partial_X\psi)^2+(\partial_Xu)^2\bigr)
+=\int_E\bigl((\partial_Y\psi)^2+(\partial_Yu)^2\bigr)$. By reflection parity in
+$Y$, the cross integrals $\int_E\partial_k\psi\,\partial_ku$ vanish for $k=X,Y$.
+Substituting $q=(\psi-\ii u)/\sqrt2$ into $\An(q)$ then gives
+\[
+ \An(q)=\int_E\bigl((\partial_Yu)^2-(\partial_Xu)^2\bigr).
+\]
+
+\emph{Step 3 (completion of the bound).} Since
+$\int_E|\nabla u|^2=\sigma_*\int_{\partial E}u^2=\sigma_*$, combining this total
+energy with Step~2 yields $\int_E(\partial_Xu)^2=\frac12(\sigma_*-\An(q))$, which
+is the identity in \eqref{eq:transverse}. The strict inequality follows from
+$\An(q)\ge\frac{\sqrt3}2>\frac23\sigma_*$ by \cref{lem:sigma-bounds}.
+Finally, $\partial_Xu$ is odd and $\partial_Yu$ is even in $Y$, so their product
+integrates to zero over $E$.
+\end{proof}
+
+%======================================================================
+\section{Affine transplantation}\label{sec:comparison}
+%======================================================================
+\subsection{Shape parameters}
+Let $T$ be a nondegenerate triangle normalized to have perimeter $P(T)=3$ and side
+lengths $\ell_0\ge\ell_1\ge\ell_2$. We set
+\[
+ d=\ell_0-1=d(T),\qquad \delta=\frac{\ell_1-\ell_2}2,\qquad
+ \text{so that}\quad \ell_{1,2}=1-\frac d2\pm\delta,
+\]
+and write $J=|T|/|E|=4|T|/\sqrt3$ for the normalized area.
+
+\begin{lemma}\label{lem:geometry}
+The shape parameters satisfy $0\le d<\frac12$, $0\le\delta\le\frac32d$, Heron's
+identity
+\begin{equation}\label{eq:heron}
+ J^2=(1-2d)\bigl((1+d)^2-4\delta^2\bigr),
+\end{equation}
+and the area bounds
+\begin{equation}\label{eq:area-bounds}
+ (1-2d)\sqrt{1+4d}\le J\le(1+d)\sqrt{1-2d}\le1,
+ \qquad 1-J^2\le12d^2.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The parameter ranges follow immediately from the triangle inequality $\ell_0<\frac32$
+and the ordering $\ell_1\le\ell_0$, while \eqref{eq:heron} is Heron's formula
+for semiperimeter $\frac32$. Because the right-hand side of \eqref{eq:heron} is
+decreasing in $\delta\ge0$, evaluating it at the endpoints $\delta=\frac32d$ and
+$\delta=0$ and using the algebraic identities $(1+d)^2-9d^2=(1-2d)(1+4d)$ and
+$(1+d)^2(1-2d)=1-3d^2-2d^3$ establishes the first chain of inequalities in
+\eqref{eq:area-bounds}. Expanding \eqref{eq:heron} further gives
+$1-J^2=3d^2+2d^3+4(1-2d)\delta^2\le12d^2$.
+\end{proof}
+
+By rigid motion and reflection, we may place $T$ so that its longest side lies on
+the vertical segment $\{0\}\times[-\frac{\ell_0}2,\frac{\ell_0}2]$ and its
+opposite apex is at $(-\eta,\xi)$ with $\eta>0$, oriented so that the side
+joining $(0,\frac{\ell_0}2)$ to $(-\eta,\xi)$ has length $\ell_1$. The area
+relation $|T|=\eta\ell_0/2$ and the side-length relations
+$\ell_{1,2}^2=\eta^2+(\xi\mp\frac{\ell_0}2)^2$ then give
+\begin{equation}\label{eq:apex}
+ \eta=\frac{\sqrt3J}{2\ell_0},\qquad
+ \xi=-\frac{(2-d)\delta}{1+d},\qquad
+ \eta^2+\xi^2=\frac{\ell_1^2+\ell_2^2}2-\frac{\ell_0^2}4,
+\end{equation}
+and in particular $|\xi|\le3d$.
+
+\subsection{The coordinate test}
+\begin{lemma}\label{lem:coordinate}
+Every triangle $T$ with $P(T)=3$ satisfies
+\[
+ \sigma_1(T)\le\frac{\sqrt3J}{\ell_0^2}\le\frac{\sqrt{3(1-2d)}}{1+d}.
+\]
+In particular, $\sigma_1(T)\le\frac{6\sqrt2}7<\sigma_*$ whenever $d\ge\frac16$.
+\end{lemma}
+\begin{proof}
+We test \eqref{eq:variance-principle} with the linear coordinate function $y$,
+whose Dirichlet energy is $|T|=\sqrt3J/4$. Along a line segment of length $\ell$
+whose endpoints have ordinates $y_0$ and $y_1$, one has $\int y=\frac\ell2(y_0+y_1)$
+and $\int y^2=\frac\ell3(y_0^2+y_0y_1+y_1^2)$. Summing these formulas over the
+three sides of $T$ and using \eqref{eq:apex}, a direct calculation gives
+\[
+ \int_{\partial T}y=-\frac{3(3-2\ell_0)\delta}{2\ell_0},\qquad
+ \Var_{\partial T}(y)=\frac{\ell_0^2}4+\frac{9-4\ell_0^2}{4\ell_0^2}\delta^2
+ \ge\frac{\ell_0^2}4 .
+\]
+Consequently, $\sigma_1(T)\le4|T|/\ell_0^2=\sqrt3J/\ell_0^2$, and the upper bound
+for $J$ in \eqref{eq:area-bounds} yields the second inequality. Its right-hand side
+is strictly decreasing in $d$ and equals $\frac{6\sqrt2}7$ at $d=\frac16$, where
+$\frac{6\sqrt2}7<\sqrt{3/2}<\sigma_*$ by \cref{lem:sigma-bounds}.
+\end{proof}
+
+\subsection{The transplanted eigenfunction}
+Let $F:E\to T$ be the affine bijection defined by
+\begin{equation}\label{eq:affine-map}
+ F(X,Y)=\Bigl(\frac J{\ell_0}(X-h),\ \ell_0Y-\frac{2\xi}{\sqrt3}(X-h)\Bigr),
+ \qquad
+ DF=\begin{pmatrix}J/\ell_0&0\\-2\xi/\sqrt3&\ell_0\end{pmatrix},
+ \qquad\det DF=J.
+\end{equation}
+This map sends $p_0\mapsto(-\eta,\xi)$ and $p_{1,2}\mapsto(0,\mp\frac{\ell_0}2)$,
+so that $F(\Gamma_j)$ is the side of $T$ of length $\ell_j$ and the restriction
+$F|_{\Gamma_j}$ scales arclength by the factor $\ell_j$. We define the centered
+trial function
+\begin{equation}\label{eq:trial}
+ v=u\circ F^{-1}-\frac13\int_{\partial T}u\circ F^{-1}\in H^1(T).
+\end{equation}
+
+\begin{proposition}\label{prop:transplant}
+If $0\le d\le\frac16$, then the trial function $v$ in \eqref{eq:trial} satisfies
+\[
+ \int_{\partial T}v^2=1+\frac32rd-8r^2\delta^2\ge1+rd,\qquad
+ \int_T|\nabla v|^2\le\sigma_*,
+\]
+and consequently $\sigma_1(T)\le\sigma_*/(1+rd)$.
+\end{proposition}
+\begin{proof}
+\emph{Step 1 (boundary term).} By the edge moment identities \eqref{eq:u-moments},
+we have $\int_{\partial T}(u\circ F^{-1})^2=\sum_{j=0}^2\ell_j\int_{\Gamma_j}u^2
+=1+\frac32rd$ and $\int_{\partial T}u\circ F^{-1}=-\sqrt6r(\ell_1-\ell_2)
+=-2\sqrt6r\delta$. Subtracting one third of the square of the latter integral
+yields the exact variance identity. Since $\delta\le\frac32d$ and $12rd\le\frac13$
+for $r<\frac16$ and $d\le\frac16$, we have
+$8r^2\delta^2\le18r^2d^2=\frac32rd\cdot12rd\le\frac12rd$, which gives the lower
+bound $\int_{\partial T}v^2\ge1+rd$.
+
+\emph{Step 2 (Dirichlet energy).} By the chain rule, the partial derivatives of
+the transplanted function are
+$\partial_x(u\circ F^{-1})=\frac{\sqrt3}{2\eta}\partial_Xu+\frac{\xi}{\eta\ell_0}\partial_Yu$
+and $\partial_y(u\circ F^{-1})=\ell_0^{-1}\partial_Yu$. Changing variables via $F$
+(with Jacobian determinant $J$) and using $\int_E\partial_Xu\,\partial_Yu=0$,
+$\int_E(\partial_Yu)^2=\sigma_*-\int_E(\partial_Xu)^2$, and \eqref{eq:apex},
+we obtain, with $\Sigma=\ell_1^2+\ell_2^2$,
+\begin{equation}\label{eq:energy-exact}
+ \int_T|\nabla v|^2=\frac{2\Sigma-\ell_0^2}{3J}\,\sigma_*
+ +\frac{2(2\ell_0^2-\Sigma)}{3J}\int_E(\partial_Xu)^2 .
+\end{equation}
+Because $\ell_0$ is a longest side, $2\ell_0^2\ge\Sigma$, so \cref{prop:transverse}
+gives $\int_T|\nabla v|^2\le\frac{5\Sigma-\ell_0^2}{9J}\sigma_*$. Expanding in
+terms of $d$ and $\delta\le\frac32d$ then yields
+$5\Sigma-\ell_0^2=9-12d+\frac32d^2+10\delta^2\le9\bigl(1-\frac43d+\frac83d^2\bigr)$.
+
+\emph{Step 3 (area comparison).} For $0\le d\le\frac16$, we have
+$1+4d-(1+\frac53d)^2=\frac{d(6-25d)}9\ge0$, and hence \eqref{eq:area-bounds} implies
+\[
+ J\ge(1-2d)\Bigl(1+\frac53d\Bigr)
+ =1-\frac43d+\frac83d^2+d(1-6d)\ge1-\frac43d+\frac83d^2 .
+\]
+Combining this lower bound with Step~2 shows that $\int_T|\nabla v|^2\le\sigma_*$.
+Since $v$ has zero boundary mean on $\partial T$, the variational principle
+\eqref{eq:variance-principle} gives
+$\sigma_1(T)\le\int_T|\nabla v|^2/\int_{\partial T}v^2\le\sigma_*/(1+rd)$.
+\end{proof}
+
+\subsection{Reverse comparison}
+To establish the upper bound on the spectral deficit, we transplant arbitrary trial
+functions in the opposite direction (cf.\ \cite{FL}).
+
+\begin{lemma}\label{lem:reverse}
+For the affine map $F$ in \eqref{eq:affine-map}, one has
+\[
+ \sigma_1(T)\ge\frac{J}{(1+d)\|DF\|^2}\,\sigma_*,
+\]
+where $\|\cdot\|$ denotes the Euclidean operator norm. In particular,
+$\sigma_1(T)\ge(1-12d)\sigma_*$ whenever $0\le d\le\frac1{12}$.
+\end{lemma}
+\begin{proof}
+For any $f\in H^1(E)$ with $\Var_{\partial E}(f)>0$, changing variables gives
+$\int_T|\nabla(f\circ F^{-1})|^2\ge J\|DF\|^{-2}\int_E|\nabla f|^2$. Moreover,
+since each side length satisfies $\ell_j\le1+d$, we have
+$\Var_{\partial T}(f\circ F^{-1})=\min_{a\in\R}\sum_{j=0}^2\ell_j\int_{\Gamma_j}(f-a)^2
+\le(1+d)\Var_{\partial E}(f)$. Because $f\mapsto f\circ F^{-1}$ is a bijection
+from $H^1(E)$ onto $H^1(T)$, taking the infimum over $f$ in
+\eqref{eq:variance-principle} establishes the first claim.
+
+Suppose now that $0\le d\le\frac1{12}$. By \eqref{eq:area-bounds},
+$1-J\le1-J^2\le12d^2\le d$, so $0\le1-J/\ell_0\le\ell_0-J\le2d$. Together with
+$|\xi|\le3d$, estimating the operator norm by the Frobenius norm gives
+\[
+ \|DF-\Id\|^2\le\Bigl(1-\frac J{\ell_0}\Bigr)^2+\frac{4\xi^2}3+d^2\le17d^2,
+\]
+whence $\|DF\|\le1+5d$.
+Consequently,
+\[
+ \frac{J}{(1+d)\|DF\|^2}
+ \ge\frac{1-d}{(1+d)(1+5d)^2}
+ \ge(1-d)^2(1-10d)\ge1-12d.
+\]
+\end{proof}
+
+\section{Proofs of the main theorems}\label{sec:proofs}
+%======================================================================
+By \eqref{eq:scaling} we normalize $P(T)=3$ and use the notation of
+\cref{sec:comparison}; then $d=d(T)$ and
+$\varepsilon(T)=1-\sigma_1(T)/\sigma_*$. The two regimes $d\le\frac16$ and
+$d\ge\frac16$ are covered by \cref{prop:transplant} and
+\cref{lem:coordinate}, respectively.
+
+\begin{proof}[Proof of \cref{thm:main}]
+If $d=0$, then $\delta=0$ and $T$ is equilateral. If $0<d\le\frac16$,
+\cref{prop:transplant} gives $\sigma_1(T)\le\sigma_*/(1+rd)<\sigma_*$; if
+$d\ge\frac16$, \cref{lem:coordinate} gives $\sigma_1(T)<\sigma_*$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:stability}]
+\emph{Lower bound.} For $0<d\le\frac16$, \cref{prop:transplant} and
+$r<\frac16$ give
+$\varepsilon(T)\ge\frac{rd}{1+rd}\ge\frac{r}{1+r/6}\,d$. For
+$\frac16\le d<\frac12$, \cref{lem:coordinate} and $2d<1$ give
+$\varepsilon(T)\ge1-\frac{6\sqrt2}{7\sigma_*}
+\ge2\bigl(1-\frac{6\sqrt2}{7\sigma_*}\bigr)d$. Hence \eqref{eq:stability}
+holds with
+\begin{equation}\label{eq:stability-constant}
+ c=\min\Bigl\{\frac{r}{1+r/6},\ 2\Bigl(1-\frac{6\sqrt2}{7\sigma_*}\Bigr)\Bigr\}>0 .
+\end{equation}
+
+\emph{Upper bound.} For $d\le\frac1{12}$, \cref{lem:reverse} gives
+$\varepsilon(T)\le12d$; for $d>\frac1{12}$, $\varepsilon(T)<1<12d$. Thus
+$C=12$.
+\end{proof}
+
+\begin{thebibliography}{99}
+\bibitem{BDR}
+L. Brasco, G. De Philippis, and B. Ruffini,
+\emph{Spectral optimization for the Stekloff--Laplacian: the stability issue},
+J. Funct. Anal. \textbf{262} (2012), no.~11, 4675--4710.
+\href{https://doi.org/10.1016/j.jfa.2012.03.017}{doi:10.1016/j.jfa.2012.03.017}.
+
+\bibitem{Brock}
+F. Brock,
+\emph{An isoperimetric inequality for eigenvalues of the Stekloff problem},
+ZAMM Z. Angew. Math. Mech. \textbf{81} (2001), no.~1, 69--71.
+
+\bibitem{BFNT}
+D. Bucur, V. Ferone, C. Nitsch, and C. Trombetti,
+\emph{Weinstock inequality in higher dimensions},
+J. Differential Geom. \textbf{118} (2021), no.~1, 1--21.
+\href{https://doi.org/10.4310/jdg/1620272940}{doi:10.4310/jdg/1620272940}.
+
+\bibitem{BN}
+D. Bucur and M. Nahon,
+\emph{Stability and instability issues of the Weinstock inequality},
+Trans. Amer. Math. Soc. \textbf{374} (2021), no.~3, 2201--2223.
+\href{https://doi.org/10.1090/tran/8302}{doi:10.1090/tran/8302}.
+
+\bibitem{CGHLY}
+Z. Cheng, C. Gui, Y. Hu, Q. Li, and R. Yao,
+\emph{Global strict monotonicity and asymptotics of the first Steklov
+eigenvalue for regular polygons}, preprint, 2026.
+\href{https://arxiv.org/abs/2603.25116v2}{arXiv:2603.25116v2}.
+
+\bibitem{CGGS}
+B. Colbois, A. Girouard, C. Gordon, and D. Sher,
+\emph{Some recent developments on the Steklov eigenvalue problem},
+Rev. Mat. Complut. \textbf{37} (2024), no.~1, 1--161.
+\href{https://doi.org/10.1007/s13163-023-00480-3}{doi:10.1007/s13163-023-00480-3}.
+
+\bibitem{FL}
+A. Ferrero and P.~D. Lamberti,
+\emph{Spectral stability of the Steklov problem},
+Nonlinear Anal. \textbf{222} (2022), Paper No.~112989.
+\href{https://doi.org/10.1016/j.na.2022.112989}{doi:10.1016/j.na.2022.112989}.
+
+\bibitem{FS2011}
+A. Fraser and R. Schoen,
+\emph{The first Steklov eigenvalue, conformal geometry, and minimal surfaces},
+Adv. Math. \textbf{226} (2011), no.~5, 4011--4030.
+\href{https://doi.org/10.1016/j.aim.2010.11.007}{doi:10.1016/j.aim.2010.11.007}.
+
+\bibitem{FS2016}
+A. Fraser and R. Schoen,
+\emph{Sharp eigenvalue bounds and minimal surfaces in the ball},
+Invent. Math. \textbf{203} (2016), no.~3, 823--890.
+\href{https://doi.org/10.1007/s00222-015-0604-x}{doi:10.1007/s00222-015-0604-x}.
+
+\bibitem{FS2019}
+A. Fraser and R. Schoen,
+\emph{Shape optimization for the Steklov problem in higher dimensions},
+Adv. Math. \textbf{348} (2019), 146--162.
+\href{https://doi.org/10.1016/j.aim.2019.03.011}{doi:10.1016/j.aim.2019.03.011}.
+
+\bibitem{GLPT}
+N. Gavitone, D.~A. La Manna, G. Paoli, and L. Trani,
+\emph{A quantitative Weinstock inequality for convex sets},
+Calc. Var. Partial Differential Equations \textbf{59} (2020), Paper No.~2.
+\href{https://doi.org/10.1007/s00526-019-1642-9}{doi:10.1007/s00526-019-1642-9}.
+
+\bibitem{GP}
+A. Girouard and I. Polterovich,
+\emph{Spectral geometry of the Steklov problem (survey article)},
+J. Spectr. Theory \textbf{7} (2017), no.~2, 321--359.
+\href{https://doi.org/10.4171/JST/164}{doi:10.4171/JST/164}.
+
+\bibitem{Henrot}
+A. Henrot,
+\emph{Extremum Problems for Eigenvalues of Elliptic Operators},
+Frontiers in Mathematics, Birkh\"auser, Basel, 2006.
+\href{https://doi.org/10.1007/3-7643-7706-2}{doi:10.1007/3-7643-7706-2}.
+
+\bibitem{HPS}
+J. Hersch, L.~E. Payne, and M.~M. Schiffer,
+\emph{Some inequalities for Stekloff eigenvalues},
+Arch. Rational Mech. Anal. \textbf{57} (1974), 99--114.
+\href{https://doi.org/10.1007/BF00248412}{doi:10.1007/BF00248412}.
+
+\bibitem{LP}
+P.~D. Lamberti and L. Provenzano,
+\emph{$H^2$-regularity of Steklov eigenfunctions on convex domains via
+Rellich--Pohozaev identity},
+Rev. Mat. Complut. (2026), published online.
+\href{https://doi.org/10.1007/s13163-026-00581-9}{doi:10.1007/\allowbreak s13163-026-\mbox{00581-9}}.
+
+\bibitem{LS2009}
+R.~S. Laugesen and B.~A. Siudeja,
+\emph{Maximizing Neumann fundamental tones of triangles},
+J. Math. Phys. \textbf{50} (2009), no.~11, Paper No.~112903.
+\href{https://doi.org/10.1063/1.3246834}{doi:10.1063/1.3246834}.
+
+\bibitem{LS2011}
+R.~S. Laugesen and B.~A. Siudeja,
+\emph{Sums of Laplace eigenvalues---rotationally symmetric maximizers in the plane},
+J. Funct. Anal. \textbf{260} (2011), no.~6, 1795--1823.
+\href{https://doi.org/10.1016/j.jfa.2010.12.018}{doi:10.1016/j.jfa.2010.12.018}.
+
+\bibitem{LPPS}
+M. Levitin, L. Parnovski, I. Polterovich, and D.~A. Sher,
+\emph{Sloshing, Steklov and corners: asymptotics of Steklov eigenvalues
+for curvilinear polygons},
+Proc. Lond. Math. Soc. (3) \textbf{125} (2022), no.~3, 359--487.
+\href{https://doi.org/10.1112/plms.12461}{doi:10.1112/plms.12461}.
+
+\bibitem{McCNeumann}
+B.~J. McCartin,
+\emph{Eigenstructure of the equilateral triangle, Part II: The Neumann problem},
+Math. Probl. Eng. \textbf{8} (2002), no.~6, 517--539.
+\href{https://doi.org/10.1080/1024123021000053664}{doi:10.1080/1024123021000053664}.
+
+\bibitem{McC}
+B.~J. McCartin,
+\emph{Eigenstructure of the equilateral triangle. Part III. The Robin problem},
+Int. J. Math. Math. Sci. \textbf{2004} (2004), no.~16, 807--825.
+\href{https://doi.org/10.1155/S0161171204306125}{doi:10.1155/S0161171204306125}.
+
+\bibitem{McLean}
+W. McLean,
+\emph{Strongly Elliptic Systems and Boundary Integral Equations},
+Cambridge University Press, Cambridge, 2000.
+
+\bibitem{Pohozaev}
+S.~I. Poho\v{z}aev,
+\emph{On the eigenfunctions of the equation $\Delta u+\lambda f(u)=0$},
+Dokl. Akad. Nauk SSSR \textbf{165} (1965), 36--39;
+English translation in Soviet Math. Dokl. \textbf{6} (1965), 1408--1411.
+
+\bibitem{PS}
+G. P\'olya and G. Szeg\H{o},
+\emph{Isoperimetric Inequalities in Mathematical Physics},
+Annals of Mathematics Studies, vol.~27,
+Princeton University Press, Princeton, NJ, 1951.
+
+\bibitem{Rellich}
+F. Rellich,
+\emph{Darstellung der Eigenwerte von $\Delta u+\lambda u=0$
+durch ein Randintegral},
+Math. Z. \textbf{46} (1940), 635--636.
+\href{https://doi.org/10.1007/BF01181459}{doi:10.1007/BF01181459}.
+
+\bibitem{Szego}
+G. Szeg\H{o},
+\emph{Inequalities for certain eigenvalues of a membrane of given area},
+J. Rational Mech. Anal. \textbf{3} (1954), 343--356.
+\href{https://doi.org/10.1512/iumj.1954.3.53017}{doi:10.1512/iumj.1954.3.53017}.
+
+\bibitem{Weinberger}
+H.~F. Weinberger,
+\emph{An isoperimetric inequality for the $N$-dimensional free membrane problem},
+J. Rational Mech. Anal. \textbf{5} (1956), 633--636.
+\href{https://doi.org/10.1512/iumj.1956.5.55021}{doi:10.1512/iumj.1956.5.55021}.
+
+\bibitem{Weinstock}
+R. Weinstock,
+\emph{Inequalities for a classical eigenvalue problem},
+J. Rational Mech. Anal. \textbf{3} (1954), 745--753.
+\href{https://doi.org/10.1512/iumj.1954.3.53036}{doi:10.1512/iumj.1954.3.53036}.
+\end{thebibliography}
+
+\end{document}
