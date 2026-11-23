@@ -1,4 +1,12 @@
-# Steklov Polygon Inequalities
+# Steklov–Pólya–Szegő conjecture
+
+We prove the **polygonal Weinstock-type conjecture** for every integer $N\ge 3$.
+
+## Main theorem
+
+Let $R_N$ be a regular $N$-gon and let $\Omega$ be a simple planar polygon of positive area with at most $N$ sides. The polygon may be convex or nonconvex. Each maximal straight segment of its boundary counts as one side.
+
+Write $P(\Omega)=\lvert\partial\Omega\rvert$ for the perimeter, $\sigma_1(\Omega)$ for the first positive Steklov eigenvalue, and $J(\Omega)=P(\Omega)\,\sigma_1(\Omega)$ for their product. Then
 
 ```math
 \lvert\partial\Omega\rvert\,\sigma_1(\Omega)
@@ -7,9 +15,7 @@
 \qquad N\ge 3.
 ```
 
-We prove the **polygonal Weinstock-type conjecture** for every integer $N\ge 3$. Here $R_N$ is a regular $N$-gon and $\Omega$ is any simple planar polygon of positive area with at most $N$ sides. **Equality holds exactly when $\Omega$ is similar to $R_N$.**
-
-The inequality holds for both convex and nonconvex polygons. Each maximal straight segment of the boundary counts as one side. We write $P(\Omega)=|\partial\Omega|$ for the perimeter, $\sigma_1(\Omega)$ for the first positive Steklov eigenvalue, and $J(\Omega)=P(\Omega)\,\sigma_1(\Omega)$ for their product.
+**Equality holds exactly when $\Omega$ is similar to $R_N$.**
 
 ## Papers
 
