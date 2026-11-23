@@ -1,14 +1,15 @@
 # Steklov Polygon Inequalities
 
-We prove the **polygonal Weinstock-type conjecture** for every integer $N\ge3$. Among all simple planar polygons of positive area with at most $N$ sides and a given perimeter, the regular $N$-gon uniquely maximizes the first positive Steklov eigenvalue, up to congruence.
+```math
+\lvert\partial\Omega\rvert\,\sigma_1(\Omega)
+\;\le\;
+\lvert\partial R_N\rvert\,\sigma_1(R_N),
+\qquad N\ge 3.
+```
 
-Write $P(\Omega)$ for the perimeter of $\Omega$, let $\sigma_1(\Omega)$ be its first positive Steklov eigenvalue, and set $J(\Omega)=P(\Omega)\,\sigma_1(\Omega)$. If $R_N$ is a regular $N$-gon, the scale-invariant form of the theorem is
+We prove the **polygonal Weinstock-type conjecture** for every integer $N\ge 3$. Here $R_N$ is a regular $N$-gon and $\Omega$ is any simple planar polygon of positive area with at most $N$ sides. **Equality holds exactly when $\Omega$ is similar to $R_N$.**
 
-$$
-J(\Omega)\le J(R_N),
-$$
-
-with equality precisely when $\Omega$ is similar to $R_N$. The theorem covers convex and nonconvex polygons. Each maximal straight segment of the boundary counts as one side.
+The inequality holds for both convex and nonconvex polygons. Each maximal straight segment of the boundary counts as one side. We write $P(\Omega)=|\partial\Omega|$ for the perimeter, $\sigma_1(\Omega)$ for the first positive Steklov eigenvalue, and $J(\Omega)=P(\Omega)\,\sigma_1(\Omega)$ for their product.
 
 ## Papers
 
