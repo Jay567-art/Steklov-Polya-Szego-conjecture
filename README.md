@@ -2,6 +2,8 @@
 
 We prove the **polygonal Weinstock-type conjecture** for every integer $N\ge 3$.
 
+[Project page and full-text papers](https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/) · [中文摘要](https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/#zh)
+
 ## Main theorem
 
 Let $R_N$ be a regular $N$-gon and let $\Omega$ be a simple planar polygon of positive area with at most $N$ sides. The polygon may be convex or nonconvex. Each maximal straight segment of its boundary counts as one side.
@@ -49,6 +51,10 @@ The square alone attains the sharp value $8\tau\tanh\tau$, where $\tau\in(0,\pi/
 Theorem 6.1 proves the inequality and its equality case for every $N\ge5$. For pentagons, the proof gives sharp quadratic stability in the convex case and a uniform gap below the regular pentagon in the nonconvex case. For $N\ge6$, trial functions on a fan of triangles handle the convex case, while a bound in terms of the number of strictly convex corners handles the nonconvex case. The proof uses finite rational and integer certificates.
 
 [Combined paper (PDF)](N%E2%89%A55.polygonal%20Weinstock-type%20conjecture.pdf)
+
+## 中文摘要
+
+多边形 Weinstock 型猜想研究固定周长下的第一正 Steklov 特征值。对每个整数 $N\ge 3$，在至多有 $N$ 条边的正面积简单平面多边形中，正 $N$ 边形唯一达到最大值，等号按全等计。结论同时覆盖凸多边形和非凸多边形。
 
 ## Version history
 

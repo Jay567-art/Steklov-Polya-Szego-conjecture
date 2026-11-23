@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Steklov–Pólya–Szegő conjecture | The polygonal Weinstock-type conjecture</title>
+  <meta name="description" content="The regular N-gon uniquely maximizes the first positive Steklov eigenvalue at fixed perimeter among simple polygons with at most N sides. Read the proofs for every N ≥ 3.">
+  <link rel="canonical" href="https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/">
+  <style>
+    :root { color-scheme: light; --ink: #172b34; --muted: #425964; --accent: #12594f; --rule: #c5d2d4; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: white; font: 1.08rem/1.65 "Source Sans 3", system-ui, sans-serif; }
+    main { max-width: 54rem; margin: 0 auto; padding: clamp(1.2rem, 5vw, 3.5rem); }
+    header { border-top: 4px solid var(--accent); padding-top: 1.5rem; }
+    h1, h2, .formula, .paper-title { font-family: "STIX Two Text", Georgia, serif; }
+    h1, h2 { line-height: 1.12; font-weight: 500; text-wrap: balance; }
+    h1 { margin: 0 0 1rem; font-size: clamp(2.2rem, 6vw, 3.8rem); letter-spacing: -.035em; }
+    h2 { font-size: 1.85rem; margin: 0 0 .9rem; }
+    p { margin: .6rem 0; }
+    .lead { font-size: 1.18rem; }
+    a { color: var(--accent); text-decoration-thickness: .08em; text-underline-offset: .17em; }
+    a:hover { color: #102f2f; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    nav { display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; margin-top: 1rem; }
+    section { border-top: 1px solid var(--rule); margin-top: 2rem; padding-top: 1.35rem; }
+    .formula { margin: 1rem 0; font-size: clamp(1.3rem, 4vw, 1.85rem); }
+    sub { font-size: .7em; }
+    .papers { list-style: none; padding: 0; margin: 0; }
+    .papers li { display: grid; grid-template-columns: 6.4rem minmax(0,1fr); gap: .3rem 1rem; padding: .85rem 0; }
+    .papers li + li { border-top: 1px solid #dce5e6; }
+    .case { color: var(--muted); font-variant-numeric: lining-nums; }
+    .paper-title { font-size: 1.16rem; }
+    .papers p { margin: .25rem 0 0; color: var(--muted); line-height: 1.5; }
+    @media (max-width: 33rem) { .papers li { grid-template-columns: 1fr; } }
+    @media print { nav { display: none; } main { padding: 0; } a { color: inherit; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Steklov–Pólya–Szegő conjecture</h1>
+      <p class="lead">We prove the <strong>polygonal Weinstock-type conjecture</strong> for every integer <i>N</i> ≥ 3. At fixed perimeter, the regular <i>N</i>-gon uniquely maximizes the first positive Steklov eigenvalue among simple planar polygons with at most <i>N</i> sides.</p>
+      <nav aria-label="Project links"><a href="https://github.com/Jay567-art/Steklov-Polya-Szego-conjecture">GitHub repository</a><a href="#papers">Read the papers</a><a href="#zh" lang="zh-Hans">中文摘要</a></nav>
+    </header>
+    <section aria-labelledby="theorem">
+      <h2 id="theorem">Main theorem</h2>
+      <p>Let Ω be a simple planar polygon of positive area, with perimeter <i>P</i>(Ω) and at most <i>N</i> sides. Let σ₁(Ω) be its first positive Steklov eigenvalue and let <i>R</i><sub>N</sub> be a regular <i>N</i>-gon. Then</p>
+      <p class="formula"><i>P</i>(Ω) σ₁(Ω) ≤ <i>P</i>(<i>R</i><sub>N</sub>) σ₁(<i>R</i><sub>N</sub>).</p>
+      <p>Equality holds exactly when Ω is similar to <i>R</i><sub>N</sub>. The theorem covers convex and nonconvex polygons. Each maximal straight segment of the boundary counts as one side.</p>
+    </section>
+    <section aria-labelledby="papers">
+      <h2 id="papers">Papers</h2>
+      <ul class="papers">
+        <li><span class="case"><i>N</i> = 3</span><div><a class="paper-title" href="N3_Triangle.pdf">The sharp Steklov inequality for triangles and its linear stability (PDF)</a><p>The equilateral triangle is the unique maximizer up to similarity. The proof also gives two-sided linear stability.</p></div></li>
+        <li><span class="case"><i>N</i> = 4</span><div><a class="paper-title" href="N4_Quadrilateral.pdf">A sharp Steklov inequality for quadrilaterals by interpolation along a diagonal (PDF)</a><p>The square is the unique maximizer up to similarity. The proof treats both convex and concave quadrilaterals.</p></div></li>
+        <li><span class="case"><i>N</i> ≥ 5</span><div><a class="paper-title" href="N%E2%89%A55.polygonal%20Weinstock-type%20conjecture.pdf">The first Steklov eigenvalue of simple polygons with a prescribed upper bound on the number of sides (PDF)</a><p>Theorem 6.1 gives the sharp inequality and its equality case for every <i>N</i> ≥ 5, including pentagons and hexagons.</p></div></li>
+      </ul>
+    </section>
+    <section lang="zh-Hans" aria-labelledby="zh">
+      <h2 id="zh">中文摘要</h2>
+      <p>我们证明了多边形 Weinstock 型猜想的全部情形。对每个整数 <i>N</i> ≥ 3，在周长固定、至多有 <i>N</i> 条边的正面积简单平面多边形中，正 <i>N</i> 边形的第一正 Steklov 特征值最大。取等号的多边形均与同周长的正 <i>N</i> 边形全等。结论同时覆盖凸多边形和非凸多边形。</p>
+    </section>
+  </main>
+</body>
+</html>
