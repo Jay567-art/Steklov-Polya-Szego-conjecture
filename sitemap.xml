@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/</loc></url>
-  <url><loc>https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/N3_Triangle.pdf</loc></url>
-  <url><loc>https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/N4_Quadrilateral.pdf</loc></url>
-  <url><loc>https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/N%E2%89%A55.polygonal%20Weinstock-type%20conjecture.pdf</loc></url>
+  <url>
+    <loc>https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/</loc>
+    <lastmod>2026-11-23T04:30:54Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/N3_Triangle.pdf</loc>
+    <lastmod>2026-11-22T16:28:01Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/N4_Quadrilateral.pdf</loc>
+    <lastmod>2026-11-22T18:08:04Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/N%E2%89%A55.polygonal%20Weinstock-type%20conjecture.pdf</loc>
+    <lastmod>2026-11-23T01:04:49Z</lastmod>
+  </url>
 </urlset>

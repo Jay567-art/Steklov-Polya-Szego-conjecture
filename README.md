@@ -35,7 +35,7 @@ c\,d(T)\le 1-\frac{J(T)}{J(E)}\le C\,d(T),
 
 The proof transplants a first eigenfunction of $E$ by an affine map that sends one edge to a longest side of $T$.
 
-[PDF](N3_Triangle.pdf) · [LaTeX source](N3_Triangle.tex)
+[PDF](https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/N3_Triangle.pdf) · [LaTeX source](N3_Triangle.tex)
 
 ### Quadrilaterals ($N=4$)
 
@@ -44,13 +44,13 @@ Zhuo Cheng and Yi'an Zhang
 
 The square alone attains the sharp value $8\tau\tanh\tau$, where $\tau\in(0,\pi/2)$ solves $\tan\tau \tanh\tau=1$. Every concave quadrilateral satisfies the stricter bound $J(Q)<3\sqrt{3}$. For convex quadrilaterals near the square, interpolation along a diagonal gives a lower bound on the deficit that is linear in the affine distortion of the associated parallelogram and quadratic in the distance between the diagonal midpoints.
 
-[PDF](N4_Quadrilateral.pdf) · [LaTeX source](N4_Quadrilateral.tex)
+[PDF](https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/N4_Quadrilateral.pdf) · [LaTeX source](N4_Quadrilateral.tex)
 
 ### N≥5.**polygonal Weinstock-type conjecture**
 
 Theorem 6.1 proves the inequality and its equality case for every $N\ge5$. For pentagons, the proof gives sharp quadratic stability in the convex case and a uniform gap below the regular pentagon in the nonconvex case. For $N\ge6$, trial functions on a fan of triangles handle the convex case, while a bound in terms of the number of strictly convex corners handles the nonconvex case. The proof uses finite rational and integer certificates.
 
-[Combined paper (PDF)](N%E2%89%A55.polygonal%20Weinstock-type%20conjecture.pdf)
+[Combined paper (PDF)](https://jay567-art.github.io/Steklov-Polya-Szego-conjecture/N%E2%89%A55.polygonal%20Weinstock-type%20conjecture.pdf)
 
 ## 中文摘要
 
@@ -58,4 +58,4 @@ Theorem 6.1 proves the inequality and its equality case for every $N\ge5$. For p
 
 ## Version history
 
-The commit history records revisions to each paper.
+The [repository history](https://github.com/Jay567-art/Steklov-Polya-Szego-conjecture/commits/main/) records when each manuscript was added or revised.
