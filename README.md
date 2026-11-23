@@ -6,7 +6,7 @@ We prove the **polygonal Weinstock-type conjecture** for every integer $N\ge 3$.
 
 Let $R_N$ be a regular $N$-gon and let $\Omega$ be a simple planar polygon of positive area with at most $N$ sides. The polygon may be convex or nonconvex. Each maximal straight segment of its boundary counts as one side.
 
-Write $P(\Omega)=\lvert\partial\Omega\rvert$ for the perimeter, $\sigma_1(\Omega)$ for the first positive Steklov eigenvalue, and $J(\Omega)=P(\Omega)\,\sigma_1(\Omega)$ for their product. Then
+Write $P(\Omega)=\lvert\partial\Omega\rvert$ for the perimeter, $\sigma_1(\Omega)$ for the first positive Steklov eigenvalue, and $J(\Omega)=P(\Omega)\sigma_1(\Omega)$ for their product. Then
 
 ```math
 \lvert\partial\Omega\rvert\,\sigma_1(\Omega)
@@ -26,10 +26,10 @@ Zhuo Cheng and Yi'an Zhang
 
 The equilateral triangle $E$ is the unique maximizer up to similarity. The length $\ell_{\max}(T)$ of the longest side also controls how far any triangle $T$ falls below the maximum. For universal constants $c,C>0$,
 
-$$
+```math
 c\,d(T)\le 1-\frac{J(T)}{J(E)}\le C\,d(T),
 \qquad d(T)=\frac{3\ell_{\max}(T)}{P(T)}-1.
-$$
+```
 
 The proof transplants a first eigenfunction of $E$ by an affine map that sends one edge to a longest side of $T$.
 
@@ -40,7 +40,7 @@ The proof transplants a first eigenfunction of $E$ by an affine map that sends o
 **A Sharp Steklov Inequality for Quadrilaterals by Interpolation Along a Diagonal**  
 Zhuo Cheng and Yi'an Zhang
 
-The square alone attains the sharp value $8\tau\tanh\tau$, where $\tau\in(0,\pi/2)$ solves $\tan\tau\,\tanh\tau=1$. Every concave quadrilateral satisfies the stricter bound $J(Q)<3\sqrt{3}$. For convex quadrilaterals near the square, interpolation along a diagonal gives a lower bound on the deficit that is linear in the affine distortion of the associated parallelogram and quadratic in the distance between the diagonal midpoints.
+The square alone attains the sharp value $8\tau\tanh\tau$, where $\tau\in(0,\pi/2)$ solves $\tan\tau \tanh\tau=1$. Every concave quadrilateral satisfies the stricter bound $J(Q)<3\sqrt{3}$. For convex quadrilaterals near the square, interpolation along a diagonal gives a lower bound on the deficit that is linear in the affine distortion of the associated parallelogram and quadratic in the distance between the diagonal midpoints.
 
 [PDF](N4_Quadrilateral.pdf) · [LaTeX source](N4_Quadrilateral.tex)
 
